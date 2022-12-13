@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('cube_list', function (Blueprint $table) {
+            $table->unsignedSmallInteger('sleeve_link_id')->primary();
+            $table->string('oracle_id');
+            $table->unsignedSmallInteger('layout_key_1');
+            $table->unsignedSmallInteger('layout_key_2');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('cube_list');
+    }
+};
