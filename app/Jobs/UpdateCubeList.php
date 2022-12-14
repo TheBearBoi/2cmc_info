@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Card;
-use App\Models\CardFace;
 use App\Models\CubeList;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -35,16 +34,12 @@ class UpdateCubeList implements ShouldQueue
     {
         $handle = fopen("storage/app/cube_list.csv", "r");
         if ($handle) {
-            while (($line = fgets($handle)) !== false) {
-                $line = explode(',', $line);
-                echo $line[1] . PHP_EOL;
+            while (($line = fgetcsv($handle)) !== false) {
                 echo $line[0] . PHP_EOL;
-                echo $line[2] . PHP_EOL;
-                echo $line[3] . PHP_EOL;
                 CubeList::updateOrCreate(
                     ['sleeve_id' => $line[1]],
                     [
-                        'oracle_id' => CardFace::firstWhere('name', $line[0])->oracle_id,
+                        'oracle_id' => Card::firstWhere('name', 'like',  $line[0] . '%')->oracle_id,
                         'layout_key_1' => $line[2],
                         'layout_key_2' => $line[3]
                     ]
