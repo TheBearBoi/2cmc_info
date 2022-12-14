@@ -132,6 +132,7 @@ class UpdateCardDatabases implements ShouldQueue
                 if (strlen($line) < 3) {continue;}
                 preg_match('/{.+}/',$line,$ruling_json_array);
                 $ruling_json = json_decode($ruling_json_array[0], true);
+                echo 'ruling for card ' . $card_json["oracle_id"] . PHP_EOL;
                 CardRuling::updateOrCreate(
                     ['oracle_id' => $ruling_json["oracle_id"], 'ruling_text' => $ruling_json["comment"]],
                     ['ruling_date' => $ruling_json["published_at"]]
