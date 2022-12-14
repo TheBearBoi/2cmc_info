@@ -36,6 +36,9 @@ class UpdateCubeList implements ShouldQueue
         if ($handle) {
             while (($line = fgetcsv($handle)) !== false) {
                 echo $line[1] . PHP_EOL;
+                echo $line[0] . PHP_EOL;
+                echo $line[2] . PHP_EOL;
+                echo $line[3] . PHP_EOL;
                 CubeList::updateOrCreate(
                     ['sleeve_id' => $line[1]],
                     [
