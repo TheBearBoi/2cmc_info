@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('cube_list');
         Schema::create('cube_list', function (Blueprint $table) {
             $table->unsignedSmallInteger('sleeve_id')->primary();
             $table->string('oracle_id');
