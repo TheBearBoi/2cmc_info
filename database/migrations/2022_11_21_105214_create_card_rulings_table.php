@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id('ruling_id');
             $table->date('ruling_date');
             $table->text('ruling_text');
-            $table->unique(["oracle_id","ruling_text"]);
         });
     }
 
