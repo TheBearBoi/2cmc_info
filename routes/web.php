@@ -1,6 +1,5 @@
 <?php
 
-use App\DeckScannerWebSocketHandler;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CubeListController;
 use App\Http\Controllers\DeckController;
@@ -88,13 +87,15 @@ Route::get('/statistics', StatisticsController::class)
 //--------------------------------------------------------------------------
 Route::prefix('/drafts')->group(function () {
     Route::get('/test',[DraftController::class, 'test'])
-        ->name('drafts.test');
+        ->name('drafts.test')
+        ->middleware('auth.basic');
 
     Route::get('/create',[DraftController::class, 'create'])
         ->name('drafts.create');
 
     Route::get('/active',[DraftController::class, 'dashboard'])
-        ->name('drafts.active');
+        ->name('drafts.active')
+        ->middleware('auth.basic');
 
     Route::get('/{id}', [DraftController::class, 'show'])
         ->where('id',"[0-9]+")
