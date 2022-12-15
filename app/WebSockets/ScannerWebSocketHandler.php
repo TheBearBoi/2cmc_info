@@ -1,10 +1,7 @@
 <?php
 
-namespace App;
+namespace App\WebSockets;
 
-use App\Events\CardScanned;
-use App\Models\Card;
-use App\Models\CubeList;
 use Ratchet\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
 use Ratchet\WebSocket\MessageComponentInterface;

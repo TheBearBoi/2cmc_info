@@ -7,8 +7,7 @@ use App\Http\Controllers\DraftController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\StatisticsController;
-use App\ScannerWebSocketHandler;
-use Barryvdh\Debugbar\Facades\Debugbar;
+use App\WebSockets\ScannerWebSocketHandler;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 use Illuminate\Support\Facades\Route;
 
@@ -87,15 +86,13 @@ Route::get('/statistics', StatisticsController::class)
 //--------------------------------------------------------------------------
 Route::prefix('/drafts')->group(function () {
     Route::get('/test',[DraftController::class, 'test'])
-        ->name('drafts.test')
-        ->middleware('auth.basic');
+        ->name('drafts.test');
 
     Route::get('/create',[DraftController::class, 'create'])
         ->name('drafts.create');
 
     Route::get('/active',[DraftController::class, 'dashboard'])
-        ->name('drafts.active')
-        ->middleware('auth.basic');
+        ->name('drafts.active');
 
     Route::get('/{id}', [DraftController::class, 'show'])
         ->where('id',"[0-9]+")
