@@ -18,7 +18,6 @@ class ScannerWebSocketHandler implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn) {
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
-        $conn->send('connection succesful!');
 
         echo "New connection! ({$conn->resourceId})\n";
     }
