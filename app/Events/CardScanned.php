@@ -22,9 +22,9 @@ class CardScanned implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Card $card)
+    public function __construct($oracle_id)
     {
-        $this->card = $card;//
+        $this->card = Card::find($oracle_id);//
     }
 
     /**
