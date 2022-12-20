@@ -18,7 +18,7 @@ return new class extends Migration
             $table->tinyInteger('phase');
             $table->boolean('is_team_draft');
             $table->time('round_time');
-            $table->dateTime('round_end_time');
+            $table->dateTime('round_end_time')->nullable()->default(NULL);
         });
     }
 
