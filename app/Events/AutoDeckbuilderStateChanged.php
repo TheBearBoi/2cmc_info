@@ -13,16 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class AutoDeckbuilderStateChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $state;
+    public $open;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($open)
     {
-        $state = true;
+        $this->open = $open;
     }
 
     /**
@@ -32,6 +32,6 @@ class AutoDeckbuilderStateChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('scanner');
+        return new Channel('scanner');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CardScanned;
+use App\Models\Card;
 use App\Models\Draft;
 use Illuminate\Http\Request;
 
@@ -52,6 +54,9 @@ class DraftController extends Controller
 
     public function test()
     {
+        $card = Card::find('c9b82110-7dfd-4617-9399-9510be449043');
+        CardScanned::dispatch($card);
+//        broadcast(new CardScanned($card));
         return view('draft.test');
     }
 

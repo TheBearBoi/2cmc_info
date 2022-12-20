@@ -13,13 +13,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('draft_entry', function ($user, $orderId) {
-//    return $user->id === Order::findOrNew($orderId)->user_id;
-    return true;
-});
-
-Broadcast::channel('scanner', function ($user, $orderId) {
-//    return $user->id === Order::findOrNew($orderId)->user_id;
+Broadcast::channel('scanner', function () {
     return true;
 });
 

@@ -7,7 +7,6 @@ use App\Http\Controllers\DraftController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\StatisticsController;
-use App\WebSockets\ScannerWebSocketHandler;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 use Illuminate\Support\Facades\Route;
 
@@ -98,12 +97,6 @@ Route::prefix('/drafts')->group(function () {
         ->where('id',"[0-9]+")
         ->name('drafts.show');
 });
-
-//--------------------------------------------------------------------------
-//Websocket Routes
-//--------------------------------------------------------------------------
-WebSocketsRouter::webSocket('/deck-scanner', ScannerWebSocketHandler::class);
-//Route::prefix('/draft/')->group(function () {
 
 //specific previous draft route
 //Route::get('/{id}', )->where('id',"[0-9]+");

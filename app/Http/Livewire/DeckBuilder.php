@@ -9,32 +9,15 @@ use Livewire\Component;
 class DeckBuilder extends Component
 {
     public $seat;
-    public $showManualDeckBuilder = false;
+    public $showManualDeckBuilder;
 
-    protected $listeners = [
-        'showManualDeckBuilder' => 'showManualDeckBuilder',
-        'hideManualDeckBuilder' => 'hideManualDeckBuilder'
-    ];
+    public function mount()
+    {
+        $this->showManualDeckBuilder = false;
+    }
 
     public function render()
     {
         return view('livewire.deck-builder');
     }
-
-
-    public function toggleManualDeckBuilder()
-    {
-        $this->emitSelf('showManualDeckBuilder');
-    }
-
-    public function showManualDeckBuilder()
-    {
-        $this->showManualDeckBuilder = true;
-    }
-
-    public function hideManualDeckBuilder()
-    {
-        $this->showManualDeckBuilder = false;
-    }
-
 }

@@ -2,15 +2,10 @@
 
 <script>
     click.onclick = async function() {
-
-        const [nfc_reader] = await navigator.hid.requestDevice({ filters: [] })
-
-        await nfc_reader.open();
-
-        await nfc_reader.addEventListener("inputreport", (event) => {
-            const { data, device, reportId } = event;
-            console.log(`User pressed button ${data.getUint32()}.`);
-        });
+        Echo.channel(`card_scanned`)
+            .listen('OrderShipmentStatusUpdated', (e) => {
+                console.log(e.order.name);
+            });
     }
 
 

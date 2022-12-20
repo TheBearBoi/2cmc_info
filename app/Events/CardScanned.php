@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Card;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -21,9 +22,9 @@ class CardScanned implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Card $card)
     {
-        //
+        $this->card = $card;//
     }
 
     /**
@@ -33,6 +34,10 @@ class CardScanned implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('card_scanned');
+        return new Channel('scanner');
+    }
+    public function broadcastWith()
+    {
+        return ['oracle_id' => $this->card->oracle_id];
     }
 }
