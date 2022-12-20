@@ -32,6 +32,6 @@ class AutoDeckbuilderStateChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('scanner');
+        return new PrivateChannel('scanner');
     }
 }

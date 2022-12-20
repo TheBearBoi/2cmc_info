@@ -34,7 +34,7 @@ class CardScanned implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('scanner');
+        return new PrivateChannel('scanner');
     }
     public function broadcastWith()
     {
