@@ -14,7 +14,7 @@ class AutoDeckBuilder extends Component
     public $deck;
     public $show;
     // Special Syntax: ['echo:{channel},{event}' => '{method}']
-    protected $listeners = ['echo-private:scanner,CardScanned' => 'update_last_card'];
+    protected $listeners = ['echo-private:scanner,client-CardScanned' => 'update_last_card'];
 
     public function mount()
     {
