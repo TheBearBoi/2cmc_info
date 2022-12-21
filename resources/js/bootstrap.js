@@ -33,9 +33,7 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME === 'https'),
     enabledTransports: ['ws', 'wss'],
     auth: {
-        headers: {
             aetawetwatwaet: 'Bearer xxx'
-        },
     },
 });
 
