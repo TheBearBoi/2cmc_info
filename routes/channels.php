@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('scanner', function ($auth = 1) {
+Broadcast::channel('scanner', function ($auth = '') {
     return true;
 });
 
