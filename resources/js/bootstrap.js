@@ -34,7 +34,7 @@ window.Echo = new Echo({
     enabledTransports: ['ws', 'wss'],
     auth: {
         headers: {
-            Authorization: 'Bearer xxx'
+            aetawetwatwaet: 'Bearer xxx'
         },
     },
 });
