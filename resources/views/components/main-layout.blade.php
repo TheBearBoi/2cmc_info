@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title>{{ $title }}</title>
     @livewireStyles
-    @livewireScripts
 
-    @vite('resources/js/app.js')
+
     @vite('resources/css/app.css')
 </head>
 <body>
@@ -16,5 +15,7 @@
 <div class="w-[calc(100%-16rem)]">
     {{ $body }}
 </div>
+@livewireScripts
+@vite('resources/js/app.js')
 </body>
 </html>
