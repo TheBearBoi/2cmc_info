@@ -9,8 +9,11 @@
         "phpini": "sudo nano /etc/php/8.1/cli/php.ini"
     },
     "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "@vitejs/plugin-vue": "^3.0.1",
         "autoprefixer": "^10.4.13",
         "axios": "^1.1.2",
+        "bootstrap": "^5.2.3",
         "laravel-echo": "^1.14.2",
         "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^0.6.1",
@@ -18,8 +21,10 @@
         "mix-tailwindcss": "^1.3.0",
         "postcss": "^8.4.19",
         "pusher-js": "^7.6.0",
+        "sass": "^1.56.1",
         "tailwindcss": "^3.2.4",
-        "vite": "^3.2.5"
+        "vite": "^3.2.5",
+        "vue": "^3.2.37"
     },
     "dependencies": {
         "alpinejs": "^3.10.5"
