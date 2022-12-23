@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Events\AutoDeckbuilderStateChanged;
 use App\Events\CardScanned;
 use App\Models\Card;
+use App\Models\CubeList;
 use Livewire\Component;
 
 class AutoDeckBuilder extends Component
@@ -14,7 +15,7 @@ class AutoDeckBuilder extends Component
     public $deck;
     public $show;
     // Special Syntax: ['echo:{channel},{event}' => '{method}']
-    protected $listeners = ['echo-private:scanner,client-CardScanned' => 'update_last_card'];
+    protected $listeners = ['echo-private:scanner,.client-CardScanned' => 'update_last_card', 'refreshComponent' => '$refresh'];
 
     public function mount()
     {
@@ -26,8 +27,9 @@ class AutoDeckBuilder extends Component
     public function update_last_card($data)
     {
         if (!$this->show) return;
-        $this->most_recent_card = Card::find($data['oracle_id']);
+        $this->most_recent_card = CubeList::find($data['sleeve_id'])->card;
         $this->deck->push($this->most_recent_card);
+        $this->emit('refreshComponent');
     }
 
     public function toggle_scanner()
