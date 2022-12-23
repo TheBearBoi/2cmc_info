@@ -14,17 +14,17 @@ class AutoDeckbuilderStateChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $open;
-    public $seat_id;
+    public $seat_number;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($open, $seat_id)
+    public function __construct($open, $seat_number)
     {
         $this->open = $open;
-        $this->seat_id = $seat_id;
+        $this->seat_number = $seat_number;
     }
 
     /**

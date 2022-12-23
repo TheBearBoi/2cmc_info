@@ -18,7 +18,7 @@ class AutoDeckBuilder extends Component
     public function getListeners()
     {
         return [
-            "echo-private:scanner,.client-CardScanned-{$this->seat->seat_id}" => 'update_last_card'
+            "echo-private:scanner,.client-CardScanned-{$this->seat->seat_number}" => 'update_last_card'
         ];
     }
 
@@ -39,7 +39,7 @@ class AutoDeckBuilder extends Component
     public function toggle_scanner()
     {
         $this->show = !$this->show;
-        AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_id);
+        AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_number);
     }
 
     public function render()
