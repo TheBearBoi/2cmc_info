@@ -5,8 +5,9 @@
     <title>{{ $title }}</title>
     @livewireStyles
 
-
+    @vite('resources/js/app.js')
     @vite('resources/css/app.css')
+    @livewireScripts
 </head>
 <body>
 {{--create_sidebar_and_navbar();--}}
@@ -15,7 +16,6 @@
 <div class="w-[calc(100%-16rem)]">
     {{ $body }}
 </div>
-@livewireScripts
-@vite('resources/js/app.js')
+
 </body>
 </html>
