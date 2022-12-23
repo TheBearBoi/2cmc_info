@@ -15,13 +15,18 @@ class AutoDeckBuilder extends Component
     public $deck;
     public $show;
     // Special Syntax: ['echo:{channel},{event}' => '{method}']
-    protected $listeners = ['echo-private:scanner,.client-CardScanned' => 'update_last_card', 'refreshComponent' => '$refresh'];
+    public function getListeners()
+    {
+        return [
+            "echo-private:scanner,.client-CardScanned-{$this->seat->seat_id}" => 'update_last_card'
+        ];
+    }
 
     public function mount()
     {
         $this->most_recent_card = Card::find('5089ec1a-f881-4d55-af14-5d996171203b');
         $this->show = false;
-        $this->deck = collect([]);
+        $this->deck = collect();
     }
 
     public function update_last_card($data)
@@ -29,13 +34,12 @@ class AutoDeckBuilder extends Component
         if (!$this->show) return;
         $this->most_recent_card = CubeList::find($data['sleeve_id'])->card;
         $this->deck->push($this->most_recent_card);
-        $this->emit('refreshComponent');
     }
 
     public function toggle_scanner()
     {
         $this->show = !$this->show;
-        AutoDeckbuilderStateChanged::dispatch($this->show);
+        AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_id);
     }
 
     public function render()
