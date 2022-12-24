@@ -1,9 +1,9 @@
 <div x-data="{ open: @entangle('show') }">
     <button wire:click="toggle_scanner" x-show="!open">Automatic</button>
     <div  x-show="open" x-cloak>
-        <img src="{{ $most_recent_card->faces->first()->large_image_uri }}" />
+        <img src="{{ $this->most_recent_card->faces->first()->large_image_uri }}" />
         <ul>
-            @foreach($deck_card_names as $card_name)
+            @foreach($this->deck_card_names as $card_name)
                 <li>{{ $card_name }}</li>
             @endforeach
         </ul>
