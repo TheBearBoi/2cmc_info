@@ -22,6 +22,11 @@ class AutoDeckBuilder extends Component
         ];
     }
 
+    public function getDeckCardNames()
+    {
+        return $this->deck->pluck("name");
+    }
+
     public function mount()
     {
         $this->most_recent_card = Card::find('5089ec1a-f881-4d55-af14-5d996171203b');
