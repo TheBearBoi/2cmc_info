@@ -22,7 +22,7 @@ class AutoDeckBuilder extends Component
         ];
     }
 
-    public function getDeckCardNames()
+    public function getDeckCardNamesProperty()
     {
         return $this->deck->pluck("name");
     }
