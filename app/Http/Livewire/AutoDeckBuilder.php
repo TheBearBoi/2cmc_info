@@ -12,7 +12,8 @@ class AutoDeckBuilder extends Component
 {
     public $seat;
     public $most_recent_card;
-    public $deck;
+    public $main_deck;
+    public $sideboard;
     public $show;
     // Special Syntax: ['echo:{channel},{event}' => '{method}']
     public function getListeners()
@@ -22,23 +23,30 @@ class AutoDeckBuilder extends Component
         ];
     }
 
-    public function getDeckCardNamesProperty()
+    public function getMainDeckCardNamesProperty()
     {
-        return $this->deck->pluck("name");
+        return $this->main_deck->pluck("name");
+    }
+
+    public function getSideboardCardNamesProperty()
+    {
+        return $this->sideboard->pluck("name");
     }
 
     public function mount()
     {
         $this->most_recent_card = Card::find('5089ec1a-f881-4d55-af14-5d996171203b');
         $this->show = false;
-        $this->deck = collect();
+        $this->main_deck = collect();
+        $this->sideboard = collect();
     }
 
     public function update_last_card($data)
     {
         if (!$this->show) return;
         $this->most_recent_card = CubeList::find($data['sleeve_id'])->card;
-        $this->deck->push($this->most_recent_card);
+        if($data['main_deck']){$this->main_deck->push($this->most_recent_card);}
+        else{$this->sideboard->push($this->most_recent_card);}
     }
 
     public function toggle_scanner()
