@@ -15,7 +15,7 @@
                     <li>{{ $card_name }}</li>
                 @endforeach
             </ul>
-            <button class="absolute p-2 w-auto bottom-4 border-black bg-slate-500 rounded-lg mx-auto">Submit</button>
+            <button class="absolute p-2 w-auto inset-x-0 bottom-4 border-black bg-slate-500 rounded-lg mx-auto">Submit</button>
         </div>
     </div>
 </div>
