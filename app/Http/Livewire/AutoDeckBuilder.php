@@ -39,7 +39,8 @@ class AutoDeckBuilder extends Component
     public function getSideboardListProperty()
     {
         return $this->sideboard->groupBy('oracle_id')->map(function ($row) {
-            return $row->count();
+            return ['quantity' => $row->count(),
+                'card' => $row[0]];
         });
     }
 
@@ -86,6 +87,7 @@ class AutoDeckBuilder extends Component
                 'is_sideboard' => true
             ]);
         }
+        $this->show = false;
     }
 
     public function render()
