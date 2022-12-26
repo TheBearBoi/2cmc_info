@@ -15,7 +15,6 @@ class AutoDeckBuilder extends Component
     public $main_deck;
     public $sideboard;
     public $show;
-    public $count;
     // Special Syntax: ['echo:{channel},{event}' => '{method}']
     public function getListeners()
     {
@@ -47,7 +46,6 @@ class AutoDeckBuilder extends Component
         $this->show = false;
         $this->main_deck = collect();
         $this->sideboard = collect();
-        $this->count = 0;
     }
 
     public function update_last_card($data)
@@ -56,7 +54,6 @@ class AutoDeckBuilder extends Component
         $this->most_recent_card = CubeList::find($data['sleeve_id'])->card;
         if($data['main_deck']){$this->main_deck->push($this->most_recent_card);}
         else{$this->sideboard->push($this->most_recent_card);}
-        $this->count++;
     }
 
     public function toggle_scanner()
