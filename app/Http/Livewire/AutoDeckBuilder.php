@@ -27,7 +27,8 @@ class AutoDeckBuilder extends Component
     public function getMainDeckListProperty()
     {
         return $this->main_deck->groupBy('oracle_id')->map(function ($row) {
-                            return $row->count();
+                            return ['quantity' => $row->count(),
+                                'card' => $row];
                         });
 
     }
