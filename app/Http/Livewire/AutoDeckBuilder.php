@@ -29,7 +29,7 @@ class AutoDeckBuilder extends Component
         return $this->main_deck->groupBy('oracle_id')->map(function ($row) {
                             return ['quantity' => $row->count(),
                                 'card' => $row[0]];
-                        });
+                        })->collect;
 
     }
 
