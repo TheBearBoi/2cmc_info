@@ -5,9 +5,6 @@
             <img src="{{ $this->most_recent_card->faces->first()->large_image_uri }}" alt="{{ $this->most_recent_card->name }}" class="h-full"/>
             <ul>
                 <li>Main Deck</li>
-                @if($this->count > 1)
-                    {{ dd($this->main_deck_list) }}
-                @endif
                 @foreach($this->main_deck_list as $value)
                     <li>{{ $value['quantity'] }}x {{ $value['card']['name'] }}</li>
                 @endforeach
