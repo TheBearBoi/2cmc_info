@@ -6,9 +6,9 @@
             <ul>
                 <li>Main Deck</li>
                 @foreach($this->main_deck_list as $value)
-                    @if($this->count > 1)
-                        {{ dd($this->main_deck_list) }}
-                    @endif
+{{--                    @if($this->count > 1)--}}
+{{--                        {{ dd($this->main_deck_list) }}--}}
+{{--                    @endif--}}
                     <li>{{ $value['quantity'] }}x {{ $value['card']->name }}</li>
                 @endforeach
             </ul>
