@@ -9,7 +9,7 @@
                     @if($this->count > 1)
                         {{ dd($this->main_deck_list) }}
                     @endif
-                    <li>{{ $value->quantity }}x {{ $value->card->name }}</li>
+                    <li>{{ $value['quantity'] }}x {{ $value['card']->name }}</li>
                 @endforeach
             </ul>
             <ul>
