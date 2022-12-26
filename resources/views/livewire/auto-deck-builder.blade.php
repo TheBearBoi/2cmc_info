@@ -6,6 +6,7 @@
             <ul>
                 <li>Main Deck</li>
                 @foreach($this->main_deck_list as $card => $quantity)
+                    {{ dd($this->main_deck_list) }}
                     <li>{{ $quantity }}x {{ $card->name }}</li>
                 @endforeach
             </ul>
