@@ -9,7 +9,7 @@
                     {{ dd($this->main_deck_list) }}
                 @endif
                 @foreach($this->main_deck_list as $value)
-                    <li>{{ $value['quantity'] }}x {{ $value['card']->name }}</li>
+                    <li>{{ $value['quantity'] }}x {{ $value['card']['name'] }}</li>
                 @endforeach
             </ul>
             <ul>
