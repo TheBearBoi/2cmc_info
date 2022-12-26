@@ -11,11 +11,11 @@
             </ul>
             <ul>
                 <li>Sideboard</li>
-                @foreach($this->sideboard as $value)
+                @foreach($this->sideboard_list as $value)
                     <li>{{ $value['quantity'] }}x {{ $value['card']->name }}</li>
                 @endforeach
             </ul>
-            <button class="absolute p-2 w-24 inset-x-0 bottom-4 border-black bg-slate-500 rounded-lg mx-auto">Submit</button>
+            <button class="absolute p-2 w-24 inset-x-0 bottom-4 border-black bg-slate-500 rounded-lg mx-auto" value="CreateDeck()">Submit</button>
         </div>
     </div>
 </div>

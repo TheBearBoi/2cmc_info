@@ -6,6 +6,8 @@ use App\Events\AutoDeckbuilderStateChanged;
 use App\Events\CardScanned;
 use App\Models\Card;
 use App\Models\CubeList;
+use App\Models\Deck;
+use App\Models\DeckContent;
 use Livewire\Component;
 
 class AutoDeckBuilder extends Component
@@ -63,6 +65,27 @@ class AutoDeckBuilder extends Component
     {
         $this->show = !$this->show;
         AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_number);
+    }
+
+    public function CreateDeck()
+    {
+        $deck = Deck::create(['deck_name' => 'test', 'player_id' => $this->seat->player_id, 'color' => 'wubrg', 'archetype' => 'test']);
+        foreach ($this->main_deck_list as $value){
+            DeckContent::create([
+                'deck_id' => $deck->deck_id,
+                'oracle_id' => $value['card']['oracle_id'],
+                'quantity' => $value['quantity'],
+                'is_sideboard' => false
+                ]);
+        }
+        foreach ($this->sideboard_list as $value){
+            DeckContent::create([
+                'deck_id' => $deck->deck_id,
+                'oracle_id' => $value['card']['oracle_id'],
+                'quantity' => $value['quantity'],
+                'is_sideboard' => true
+            ]);
+        }
     }
 
     public function render()
