@@ -7,7 +7,6 @@
                 <li>Main Deck</li>
                 @foreach($this->main_deck_list as $value)
                     <li>{{ $value['quantity'] }}x {{ $value['card']->name }}</li>
-                    {{ DebugBar::info($value) }}
                 @endforeach
             </ul>
             <ul>
