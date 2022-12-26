@@ -17,7 +17,10 @@ class AutoDeckBuilder extends Component
     public $main_deck;
     public $sideboard;
     public $show;
-    public $count;
+    public $deck_name;
+    public $archetype;
+    public $colors;
+
     // Special Syntax: ['echo:{channel},{event}' => '{method}']
     public function getListeners()
     {
@@ -50,7 +53,11 @@ class AutoDeckBuilder extends Component
         $this->show = false;
         $this->main_deck = collect();
         $this->sideboard = collect();
-        $this->count = 0;
+        $this->colors = ["W" => false,
+            "U" => false,
+            "B" => false,
+            "R" => false,
+            "G" => false];
     }
 
     public function update_last_card($data)
@@ -70,7 +77,7 @@ class AutoDeckBuilder extends Component
 
     public function CreateDeck()
     {
-        $deck = Deck::create(['deck_name' => 'test', 'player_id' => $this->seat->player_id, 'color' => 'wubrg', 'archetype' => 'test']);
+        $deck = Deck::create(['deck_name' => $this->deck_name, 'player_id' => $this->seat->player_id, 'color' => $this->colors, 'archetype' => $this->archetype]);
         foreach ($this->main_deck_list as $value){
             DeckContent::create([
                 'deck_id' => $deck->deck_id,
