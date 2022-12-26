@@ -5,14 +5,14 @@
             <img src="{{ $this->most_recent_card->faces->first()->large_image_uri }}" alt="{{ $this->most_recent_card->name }}" class="h-full"/>
             <ul>
                 <li>Main Deck</li>
-                @foreach($this->main_deck_card_names as $card_name)
-                    <li>{{ $card_name }}</li>
+                @foreach($this->main_deck_list as $card => $quantity)
+                    <li>{{ $quantity }}x {{ $card->name }}</li>
                 @endforeach
             </ul>
             <ul>
                 <li>Sideboard</li>
-                @foreach($this->sideboard_card_names as $card_name)
-                    <li>{{ $card_name }}</li>
+                @foreach($this->sideboard as $card => $quantity)
+                    <li>{{ $quantity }}x {{ $card->name }}</li>
                 @endforeach
             </ul>
             <button class="absolute p-2 w-24 inset-x-0 bottom-4 border-black bg-slate-500 rounded-lg mx-auto">Submit</button>

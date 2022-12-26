@@ -23,14 +23,20 @@ class AutoDeckBuilder extends Component
         ];
     }
 
-    public function getMainDeckCardNamesProperty()
+
+    public function getMainDeckListProperty()
     {
-        return $this->main_deck->pluck("name");
+        return $this->main_deck->groupBy('oracle_id')->map(function ($row) {
+                            return $row->count();
+                        });
+
     }
 
-    public function getSideboardCardNamesProperty()
+    public function getSideboardListProperty()
     {
-        return $this->sideboard->pluck("name");
+        return $this->sideboard->groupBy('oracle_id')->map(function ($row) {
+            return $row->count();
+        });
     }
 
     public function mount()
