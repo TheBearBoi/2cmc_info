@@ -32,12 +32,14 @@ class NextRound extends Component
         $round_number = $draft->phase - 2;
         $matches = $draft->matches;
         $current_round_matches = $matches->where('round_number', $round_number);
-
-        if ($round_number != 0)
-        {
+        if($round_number == 0 AND $seats->where('deck_id', NULL)->count() >0){
+            $this->dispatchBrowserEvent('MissingData', ['type' => 'decks']);
+            return false;
+        } else {
             if ($this->has_outstanding_matches($current_round_matches))
             {
-                return 'please submit all matches before advancing to the next round';
+                $this->dispatchBrowserEvent('MissingData', ['type' => 'Matches']);
+                return false;
             }
             foreach($current_round_matches as $match)
             {
