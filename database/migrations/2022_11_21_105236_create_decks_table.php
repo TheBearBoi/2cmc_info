@@ -19,10 +19,10 @@ return new class extends Migration
             $table->integer('player_id');
             $table->string('color');
             $table->string('archetype');
-            $table->tinyInteger('wins');
-            $table->tinyInteger('losses');
-            $table->tinyInteger('draws');
-            $table->boolean('is_trophy');
+            $table->tinyInteger('wins')->default(0);
+            $table->tinyInteger('losses')->default(0);
+            $table->tinyInteger('draws')->default(0);
+            $table->boolean('is_trophy')->default(false);
         });
     }
 
