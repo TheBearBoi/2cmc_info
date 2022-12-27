@@ -100,6 +100,8 @@ class AutoDeckBuilder extends Component
                 'is_sideboard' => true
             ]);
         }
+        $this->seat->deck_id = $deck->deck_id;
+        $this->seat->save();
         $this->open = false;
         $this->submitted = true;
         AutoDeckbuilderStateChanged::dispatch($this->open, $this->seat->seat_number);

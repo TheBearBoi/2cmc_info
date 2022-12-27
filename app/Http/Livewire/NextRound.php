@@ -8,6 +8,7 @@ use App\Models\DraftSeat;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
+
 class NextRound extends Component
 {
     public $label;
@@ -66,7 +67,7 @@ class NextRound extends Component
         if($player_1_wins > $player_2_wins)
         {
             $deck_1->wins++;
-            if($deck_2) {$deck_2->wwins++;}
+            if($deck_2) {$deck_2->wins++;}
         } elseif ($player_1_wins < $player_2_wins)
         {
             $deck_1->losses++;
