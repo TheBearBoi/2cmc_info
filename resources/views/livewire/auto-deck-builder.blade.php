@@ -1,5 +1,5 @@
 <div x-data="{ open: @entangle('open'), submitted: @entangle('submitted') }">
-    <button wire:click="toggle_scanner" x-show="submitted">Automatic</button>
+    <button wire:click="toggle_scanner" x-show="!submitted">Automatic</button>
     <div x-show="open" x-cloak class="absolute inset-0 bg-opacity-80 bg-black">
         <div
             x-on:click.outside="$wire.toggle_scanner()"
