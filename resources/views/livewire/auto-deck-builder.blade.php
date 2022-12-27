@@ -21,7 +21,7 @@
                 <button class="absolute p-2 w-24 mt-4 border-black bg-slate-500 rounded-lg mx-auto" wire:click="CreateDeck()">Submit</button>
             </div>
             @if(empty($most_recent_card))
-                <img src="https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg/revision/latest?cb=20140813141013" alt="Magic Card Back" class="h-full"/>
+                <img src="https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg" alt="Magic Card Back" class="h-full"/>
             @else
                 <img src="{{ $most_recent_card->faces->first()->png_uri }}" alt="{{ $this->most_recent_card->name }}" class="h-full"/>
             @endif

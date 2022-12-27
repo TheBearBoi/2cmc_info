@@ -100,6 +100,7 @@ class AutoDeckBuilder extends Component
             ]);
         }
         $this->show = false;
+        AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_number);
     }
 
     public function render()
