@@ -23,7 +23,7 @@
             </tr>
         @endforeach
     </table>
-    <div class="absolute bottom-24 inset-x-0 w-40">
+    <div class="absolute bottom-24 inset-x-0 w-80">
         <div class="mx-auto">
             <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name">
             <button wire:click.prevent="addPlayer()">Add Player</button>
