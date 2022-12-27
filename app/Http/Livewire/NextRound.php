@@ -30,10 +30,8 @@ class NextRound extends Component
         $draft = $this->draft;
         $seats = $this->seats;
         $round_number = $draft->phase - 2;
-        list($current_round_matches, $previous_rounds_matches) = $draft->matches
-            ->partition(function($match) use($round_number){
-                return $match->round_number == $round_number;
-            });
+        $matches = $draft->matches;
+        $current_round_matches = $matches->where('round_number', $round_number);
 
         if ($round_number != 0)
         {
@@ -50,7 +48,7 @@ class NextRound extends Component
         if($draft->is_team_draft) {
             $this->create_team_pairings($seats, $draft);
         } else {
-            $this->create_pairings($seats, $previous_rounds_matches, $draft);
+            $this->create_pairings($seats, $matches, $draft);
         }
 
         $draft->phase++;
@@ -81,13 +79,13 @@ class NextRound extends Component
         if($deck_2) {$deck_2->save();}
     }
 
-    private function has_outstanding_matches($matches)
+    private function has_outstanding_matches($matches): bool
     {
         $outstanding_matches = $matches->where('is_submitted', false)->count();
         return $outstanding_matches > 0;
     }
 
-    private function create_pairings($seats, $previous_rounds_matches, $draft)
+    private function create_pairings($seats, $matches, $draft)
     {
         $round_number = $draft->phase - 2;
 
@@ -99,12 +97,12 @@ class NextRound extends Component
             $previous_opponents = new Collection();
             $previous_opponents = $previous_opponents
                 ->push(
-                    $previous_rounds_matches
+                    $matches
                         ->where('seat_2_id', $seat->seat_id)
                         ->pluck('seat_1_id')
                 )
                 ->push(
-                    $previous_rounds_matches
+                    $matches
                         ->where('seat_1_id', $seat->seat_id)
                         ->pluck('seat_2_id')
                 )

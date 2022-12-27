@@ -23,7 +23,7 @@
             </tr>
         @endforeach
     </table>
-    <input class="bg-slate-900" type="text" list="previous-players" value="" wire:model="new_player_name">
+    <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name">
     <button wire:click.prevent="addPlayer()">Add Player</button>
     <datalist id="previous-players">
     @foreach($remaining_previous_players as $previous_player)
