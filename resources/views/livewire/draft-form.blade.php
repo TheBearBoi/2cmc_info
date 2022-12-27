@@ -2,7 +2,7 @@
     @csrf
     <label for="team">Team Draft:</label><input type="checkbox" id="team" name="team" wire:model="is_team_draft"><br />
     <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time"><br />
-    <table>
+    <table class="mx-auto border-spacing-x-4">
         <tr>
             <th>Player</th>
             <th>Assigned Seat</th>
@@ -24,11 +24,13 @@
         @endforeach
     </table>
     <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name">
-    <button wire:click.prevent="addPlayer()">Add Player</button>
-    <datalist id="previous-players">
-    @foreach($remaining_previous_players as $previous_player)
-        <option value="{{ $previous_player->player_name }}"></option>
-    @endforeach
-    </datalist><br />
-    <button type="submit" value="createDraft()">Create New Draft</button>
+    <div class="absolute bottom-8">
+        <button wire:click.prevent="addPlayer()" class="mx-auto">Add Player</button>
+        <datalist id="previous-players">
+            @foreach($remaining_previous_players as $previous_player)
+                <option value="{{ $previous_player->player_name }}"></option>
+            @endforeach
+        </datalist><br />
+        <button type="submit" value="createDraft()" class="mx-auto">Create New Draft</button>
+    </div>
 </form>
