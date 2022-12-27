@@ -28,44 +28,24 @@ class NextRound extends Component
         $draft = $this->draft;
         $seats = $this->seats;
         $round_number = $draft->phase - 2;
+        $matches = $draft->matches;
+        $current_round_matches = $matches->where('round_number', $round_number);
+
         if ($round_number != 0)
         {
-            $outstanding_matches = $draft->matches->where([
-                'is_submitted'=> false,
-                'round_number' => $round_number
-            ])->count();
-            if ($outstanding_matches > 0)
+            if ($this->has_outstanding_matches($current_round_matches))
             {
                 return 'please submit all matches before advancing to the next round';
             }
-            $matches = $draft->matches->where('round_number', $round_number);
-            foreach($matches as $match)
+            foreach($current_round_matches as $match)
             {
-                $player_1_wins = $match->player_1_wins;
-                $deck_1 = $match->seat_1->deck;
-                $deck_2 = $match->seat_2->deck;
-                $player_2_wins = $match->player_2_wins;
-                if($player_1_wins > $player_2_wins)
-                {
-                    $deck_1->wins++;
-                    $deck_2->losses++;
-                } elseif ($player_1_wins < $player_2_wins)
-                {
-                    $deck_1->losses++;
-                    $deck_2->wins++;
-                } else
-                {
-                    $deck_1->draws++;
-                    $deck_2->draws++;
-                }
-                $deck_1->save();
-                $deck_2->save();
+                $this->update_deck_record($match);
             }
         }
 
         if($draft->is_team_draft) {
-            list($team_1, $team_2) = $seats->partition(function($item){
-                return $item->team_number == 1;
+            list($team_1, $team_2) = $seats->partition(function($seat){
+                return $seat->team_number == 1;
             });
             $rotated_team_2_players = $team_2->shift($round_number);
             $team_1 = $team_1->values();
@@ -73,8 +53,9 @@ class NextRound extends Component
 
             $pairings = $team_1->zip($team_2);
         } else {
-//            $pairings = $seats->shuffle()->values()->sortBy('wins', SORT_NUMERIC)->chunk(2);
-            $pairings = $seats->shuffle()->values()->chunk(2);
+            $pairings = $seats->shuffle()->values()->sortBy('wins', SORT_NUMERIC)->chunk(2);
+            dd($pairings);
+//            $pairings = $seats->shuffle()->values()->chunk(2);
         }
         foreach ($pairings as $pairing)
         {
@@ -92,5 +73,36 @@ class NextRound extends Component
         $draft->phase++;
         $draft->save();
         return redirect()->route('drafts.active');
+    }
+
+    private function update_deck_record($match)
+    {
+        $player_1_wins = $match->player_1_wins;
+        $deck_1 = $match->seat_1->deck;
+        $deck_2 = $match->seat_2->deck;
+        $player_2_wins = $match->player_2_wins;
+        if($player_1_wins > $player_2_wins)
+        {
+            $deck_1->wins++;
+            $deck_2->losses++;
+        } elseif ($player_1_wins < $player_2_wins)
+        {
+            $deck_1->losses++;
+            $deck_2->wins++;
+        } else
+        {
+            $deck_1->draws++;
+            $deck_2->draws++;
+        }
+        $deck_1->save();
+        $deck_2->save();
+    }
+
+    private function has_outstanding_matches($matches)
+    {
+        $outstanding_matches = $matches->where([
+            'is_submitted'=> false
+        ])->count();
+        return $outstanding_matches > 0;
     }
 }
