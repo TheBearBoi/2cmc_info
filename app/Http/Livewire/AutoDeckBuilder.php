@@ -16,19 +16,32 @@ class AutoDeckBuilder extends Component
     public $most_recent_card;
     public $main_deck;
     public $sideboard;
-    public $show;
+    public $open;
     public $deck_name;
     public $archetype;
     public $colors;
+    public $submitted;
 
-    // Special Syntax: ['echo:{channel},{event}' => '{method}']
+    public function mount()
+    {
+        $this->open = false;
+        $this->submitted = false;
+        $this->main_deck = collect();
+        $this->sideboard = collect();
+        $this->colors = ["W" => false,
+            "U" => false,
+            "B" => false,
+            "R" => false,
+            "G" => false];
+    }
+
+    // Echo Listener Syntax: ['echo-private:{channel},{event}' => '{method}']
     public function getListeners()
     {
         return [
             "echo-private:scanner,.client-CardScanned-{$this->seat->seat_number}" => 'update_last_card'
         ];
     }
-
 
     public function getMainDeckListProperty()
     {
@@ -47,21 +60,9 @@ class AutoDeckBuilder extends Component
         });
     }
 
-    public function mount()
-    {
-        $this->show = false;
-        $this->main_deck = collect();
-        $this->sideboard = collect();
-        $this->colors = ["W" => false,
-            "U" => false,
-            "B" => false,
-            "R" => false,
-            "G" => false];
-    }
-
     public function update_last_card($data)
     {
-        if (!$this->show) return;
+        if (!$this->open) return;
         $this->most_recent_card = CubeList::find($data['sleeve_id'])->card;
         if($data['main_deck']){$this->main_deck->push($this->most_recent_card);}
         else{$this->sideboard->push($this->most_recent_card);}
@@ -69,8 +70,8 @@ class AutoDeckBuilder extends Component
 
     public function toggle_scanner()
     {
-        $this->show = !$this->show;
-        AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_number);
+        $this->open = !$this->open;
+        AutoDeckbuilderStateChanged::dispatch($this->open, $this->seat->seat_number);
     }
 
     public function CreateDeck()
@@ -99,8 +100,9 @@ class AutoDeckBuilder extends Component
                 'is_sideboard' => true
             ]);
         }
-        $this->show = false;
-        AutoDeckbuilderStateChanged::dispatch($this->show, $this->seat->seat_number);
+        $this->open = false;
+        $this->submitted = true;
+        AutoDeckbuilderStateChanged::dispatch($this->open, $this->seat->seat_number);
     }
 
     public function render()

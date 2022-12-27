@@ -1,7 +1,10 @@
-<div x-data="{ open: @entangle('show') }">
-    <button wire:click="toggle_scanner" x-show="!open">Automatic</button>
+<div x-data="{ open: @entangle('open'), submitted: @entangle('submitted') }">
+    <button wire:click="toggle_scanner" x-show="submitted">Automatic</button>
     <div x-show="open" x-cloak class="absolute inset-0 bg-opacity-80 bg-black">
-        <div  class="absolute inset-8 rounded-lg border-black border-8 bg-slate-300 p-4 flex">
+        <div
+            x-on:click.outside="$wire.toggle_scanner()"
+            class="absolute inset-8 rounded-lg border-black border-8 bg-slate-300 p-4 flex"
+        >
             <div class="m-4 grow-0">
                 <label for="name{{ $seat->seat_id }}">Deck Name:</label><br />
                 <input id="name{{ $seat->seat_id }}" name="name{{ $seat->seat_id }}" type="text" wire:model.defer="deck_name"><br />
