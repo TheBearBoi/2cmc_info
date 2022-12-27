@@ -23,9 +23,11 @@
             </tr>
         @endforeach
     </table>
-    <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name">
     <div class="absolute bottom-8">
-        <button wire:click.prevent="addPlayer()" class="mx-auto">Add Player</button>
+        <div class="mx-auto">
+            <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name">
+            <button wire:click.prevent="addPlayer()">Add Player</button>
+        </div>
         <datalist id="previous-players">
             @foreach($remaining_previous_players as $previous_player)
                 <option value="{{ $previous_player->player_name }}"></option>
