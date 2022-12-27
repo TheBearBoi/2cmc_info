@@ -37,7 +37,7 @@ class DraftForm extends Component
 
         $seat = new DraftSeat;
         $seat->player_id = $player->player_id;
-        $seat->player = $player;
+//        $seat->player = $player;
         $seat->seat_number = 0;
 
         $this->remaining_previous_players = $this->remaining_previous_players->reject($player);
