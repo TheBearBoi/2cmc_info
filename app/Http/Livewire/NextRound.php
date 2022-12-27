@@ -110,6 +110,7 @@ class NextRound extends Component
                         ->pluck('seat_2_id')
                 )
                 ->toArray();
+            dd($previous_opponents);
             $new_opponent_key = $seats
                 ->whereNotIn('seat_id', $previous_opponents)
                 ->keys()
