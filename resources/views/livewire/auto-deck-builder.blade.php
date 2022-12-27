@@ -20,7 +20,7 @@
                 <label for="green{{ $seat->seat_id }}">Green</label><br>
                 <button class="absolute p-2 w-24 mt-4 border-black bg-slate-500 rounded-lg mx-auto" wire:click="CreateDeck()">Submit</button>
             </div>
-            <img src="{{ $this->most_recent_card->faces->first()->png_uri ?? 'https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg/revision/latest?cb=20140813141013' }}" alt="{{ $this->most_recent_card->name }}" class="h-full"/>
+            <img src="{{ isset($this->most_recent_card) ? $this->most_recent_card->faces->first()->png_uri : 'https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg/revision/latest?cb=20140813141013' }}" alt="{{ $this->most_recent_card->name }}" class="h-full"/>
             <ul class="m-4 grow">
                 <li class="text-lg">Main Deck</li>
                 @foreach($this->main_deck_list as $value)
