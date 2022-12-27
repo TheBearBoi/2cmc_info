@@ -148,15 +148,20 @@ class NextRound extends Component
             return $seat->team_number == 1;
         });
         $rotated_team_2_players = $team_2->shift($round_number);
+        $team_2 = $team_2->values();
+        if($round_number==1) {
+            $team_2 = $team_2->push($rotated_team_2_players);
+        } else {
+            $team_2 = $team_2->values()->concat($rotated_team_2_players);
+        }
+
         $team_1 = $team_1->values();
-        $team_2 = $team_2->values()->concat($rotated_team_2_players);
 
         $pairings = $team_1
             ->zip($team_2);
 
         foreach($pairings as $pairing)
         {
-            $pairing = $pairing->values();
             $draft_match = DraftMatch::create(
                 [
                     'draft_id' => $draft->draft_id,
