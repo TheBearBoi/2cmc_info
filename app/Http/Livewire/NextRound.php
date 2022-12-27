@@ -111,7 +111,6 @@ class NextRound extends Component
                 )
                 ->flatten()
                 ->toArray();
-            dd($previous_opponents);
             $new_opponent_key = $seats
                 ->whereNotIn('seat_id', $previous_opponents)
                 ->keys()
