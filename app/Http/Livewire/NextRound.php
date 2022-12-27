@@ -94,7 +94,6 @@ class NextRound extends Component
         $round_number = $draft->phase - 2;
 
         $seats = $seats->shuffle()->values()->sortBy('deck.wins', SORT_NUMERIC);
-        dd($seats);
 
         while ($seats->count() > 1)
         {
@@ -140,7 +139,6 @@ class NextRound extends Component
                     'is_submitted' => true
                 ]
             );
-
         }
     }
 

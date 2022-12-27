@@ -11,7 +11,7 @@ class DraftMatch extends Model
     protected $primaryKey = 'draft_match_id';
     protected $table = 'draft_matches';
 
-    protected $fillable = ['draft_id', 'round_number', 'seat_1_id', 'seat_2_id'];
+    protected $fillable = ['draft_id', 'round_number', 'seat_1_id', 'seat_2_id', 'player_1_wins', 'player_2_wins', 'draws', 'is_submitted'];
 
     public function draft()
     {
