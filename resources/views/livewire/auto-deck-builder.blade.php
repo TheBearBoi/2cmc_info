@@ -3,8 +3,10 @@
     <div x-show="open" x-cloak class="absolute inset-0 bg-opacity-80 bg-black">
         <div  class="absolute inset-8 rounded-lg border-black border-8 bg-slate-300 p-4 flex">
             <div>
-                <label for="name{{ $seat->seat_id }}">Deck Name:</label><input id="name{{ $seat->seat_id }}" name="name{{ $seat->seat_id }}" type="text" wire:model.defer="deck_name"><br />
-                <label for="archetype{{ $seat->seat_id }}">Archetype:</label><input id="archetype{{ $seat->seat_id }}" name="archetype{{ $seat->seat_id }}" type="text" wire:model.defer="archetype"><br />
+                <label for="name{{ $seat->seat_id }}">Deck Name:</label><br />
+                <input id="name{{ $seat->seat_id }}" name="name{{ $seat->seat_id }}" type="text" wire:model.defer="deck_name"><br />
+                <label for="archetype{{ $seat->seat_id }}">Archetype:</label><br />
+                <input id="archetype{{ $seat->seat_id }}" name="archetype{{ $seat->seat_id }}" type="text" wire:model.defer="archetype"><br />
                 <label for="color{{ $seat->seat_id }}">Color:</label><br />
                 <input type="checkbox" id="white{{ $seat->seat_id }}" name="white{{ $seat->seat_id }}" value="W" wire:model.defer="colors.W">
                 <label for="white{{ $seat->seat_id }}">W</label><br>

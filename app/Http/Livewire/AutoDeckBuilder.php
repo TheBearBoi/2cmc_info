@@ -76,7 +76,14 @@ class AutoDeckBuilder extends Component
 
     public function CreateDeck()
     {
-        $deck = Deck::create(['deck_name' => $this->deck_name, 'player_id' => $this->seat->player_id, 'color' => $this->colors, 'archetype' => $this->archetype]);
+        $colors = array_filter($this->colors, function($v) {return $v;});
+        $colors = array_keys($colors);
+        $deck = Deck::create([
+            'deck_name' => $this->deck_name,
+            'player_id' => $this->seat->player_id,
+            'color' => join($colors),
+            'archetype' => $this->archetype
+        ]);
         foreach ($this->main_deck_list as $value){
             DeckContent::create([
                 'deck_id' => $deck->deck_id,
