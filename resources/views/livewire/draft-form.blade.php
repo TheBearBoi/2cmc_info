@@ -2,11 +2,11 @@
     @csrf
     <label for="team">Team Draft:</label><input type="checkbox" id="team" name="team" wire:model="is_team_draft"><br />
     <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time"><br />
-    <table class="mx-auto border-spacing-x-4">
+    <table class="mx-auto">
         <tr>
-            <th>Player</th>
-            <th>Assigned Seat</th>
-            <th>Remove Player</th>
+            <th class="mx-2">Player</th>
+            <th class="mx-2">Assigned Seat</th>
+            <th class="mx-2">Remove Player</th>
         </tr>
 
         @foreach($draft_seats as $key => $draft_seat)
