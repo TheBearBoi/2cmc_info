@@ -98,7 +98,7 @@ class NextRound extends Component
         {
             $seat = $seats->pop();
             $previous_opponents = new Collection();
-            $previous_opponents
+            $previous_opponents = $previous_opponents
                 ->push(
                     $previous_rounds_matches
                         ->where('seat_2_id', $seat->seat_id)
