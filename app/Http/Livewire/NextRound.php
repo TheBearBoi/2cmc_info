@@ -83,9 +83,7 @@ class NextRound extends Component
 
     private function has_outstanding_matches($matches)
     {
-        $outstanding_matches = $matches->where([
-            'is_submitted'=> false
-        ])->count();
+        $outstanding_matches = $matches->where('is_submitted', false)->count();
         return $outstanding_matches > 0;
     }
 
