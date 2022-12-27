@@ -2,7 +2,7 @@
     <button wire:click="toggle_scanner" x-show="!open">Automatic</button>
     <div x-show="open" x-cloak class="absolute inset-0 bg-opacity-80 bg-black">
         <div  class="absolute inset-8 rounded-lg border-black border-8 bg-slate-300 p-4 flex">
-            <div class="m-4">
+            <div class="m-4 grow-0">
                 <label for="name{{ $seat->seat_id }}">Deck Name:</label><br />
                 <input id="name{{ $seat->seat_id }}" name="name{{ $seat->seat_id }}" type="text" wire:model.defer="deck_name"><br />
                 <label for="archetype{{ $seat->seat_id }}">Archetype:</label><br />
@@ -20,14 +20,14 @@
                 <label for="green{{ $seat->seat_id }}">Green</label><br>
                 <button class="absolute p-2 w-24 mt-4 border-black bg-slate-500 rounded-lg mx-auto" wire:click="CreateDeck()">Submit</button>
             </div>
-            <img src="{{ $this->most_recent_card->faces->first()->png_uri }}" alt="{{ $this->most_recent_card->name }}" class="h-full m-4"/>
-            <ul class="m-4">
+            <img src="{{ $this->most_recent_card->faces->first()->png_uri }}" alt="{{ $this->most_recent_card->name }}" class="h-full"/>
+            <ul class="m-4 grow">
                 <li class="text-lg">Main Deck</li>
                 @foreach($this->main_deck_list as $value)
                     <li>{{ $value['quantity'] }}x {{ $value['card']['name'] }}</li>
                 @endforeach
             </ul>
-            <ul class="m-4">
+            <ul class="m-4 grow">
                 <li class="text-lg">Sideboard</li>
                 @foreach($this->sideboard_list as $value)
                     <li>{{ $value['quantity'] }}x {{ $value['card']['name'] }}</li>
