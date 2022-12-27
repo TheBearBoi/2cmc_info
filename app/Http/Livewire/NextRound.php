@@ -109,6 +109,7 @@ class NextRound extends Component
                         ->where('seat_1_id', $seat->seat_id)
                         ->pluck('seat_2_id')
                 )
+                ->flatten()
                 ->toArray();
             dd($previous_opponents);
             $new_opponent_key = $seats
