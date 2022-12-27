@@ -2,7 +2,7 @@
     {{ $label }}
 </button>
 <script>
-    window.addEventListener('contentChanged', (t) => {
+    window.addEventListener('MissingData', (t) => {
         alert('Please submit all ' + t + ' before moving to the next round!');
     });
 </script>
