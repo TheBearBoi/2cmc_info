@@ -67,11 +67,11 @@ class NextRound extends Component
         if($player_1_wins > $player_2_wins)
         {
             $deck_1->wins++;
-            if($deck_2) {$deck_2->wins++;}
+            if($deck_2) {$deck_2->losses++;}
         } elseif ($player_1_wins < $player_2_wins)
         {
             $deck_1->losses++;
-            if($deck_2) {$deck_2->losses++;}
+            if($deck_2) {$deck_2->wins++;}
         } else
         {
             $deck_1->draws++;
