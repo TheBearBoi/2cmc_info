@@ -1,5 +1,5 @@
 <div class="mx-auto text-center">
-    <table>
+    <table class="mx-auto">
         <tr>
             <th>Seat</th>
             <th>Player</th>
