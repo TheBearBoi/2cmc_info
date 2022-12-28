@@ -1,10 +1,10 @@
 <form wire:submit.prevent="createDraft">
     @csrf
 {{--  Todo Move team draft and round timer to bottom of the page!  --}}
-    <div class="mx-auto text-center">
+    <div class="mx-auto text-center mt-8">
         <div>
         <label for="team">Team Draft:</label><input type="checkbox" id="team" name="team" wire:model="is_team_draft">
-        <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time" class="w-8 bg-slate-300 rounded">
+        <label for=     "round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time" class="w-8 bg-slate-300 rounded">
         </div>
         <input class="bg-slate-300 rounded" type="text" list="previous-players" value="" wire:model="new_player_name">
         <button wire:click.prevent="addPlayer()">Add Player</button><br />
