@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\CubeList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +24,7 @@ class CardController extends Controller
 
     public function sleeve($id)
     {
-        $card = Card::with('cube_list_entry')->firstWhere('sleeve_id', $id);
+        $card = CubeList::firstWhere('sleeve_id', $id)->card;
 
         return view('card.show', ['card' => $card]);
     }
