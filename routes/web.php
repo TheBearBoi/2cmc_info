@@ -36,6 +36,10 @@ Route::prefix('/cards/')->group(function () {
         ->name('cards.search');
 });
 
+Route::get('/s/{id}', [CardController::class, 'sleeve'])
+    ->where('sleeve','[0-9]')
+    ->name('cards.sleeve');
+
 //--------------------------------------------------------------------------
 //Player Routes
 //--------------------------------------------------------------------------

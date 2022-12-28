@@ -20,4 +20,11 @@ class CardController extends Controller
 
         return view('card.show', ['card' => $card]);
     }
+
+    public function sleeve($id)
+    {
+        $card = Card::with('cube_list_entry')->firstWhere('sleeve_id', $id);
+
+        return view('card.show', ['card' => $card]);
+    }
 }
