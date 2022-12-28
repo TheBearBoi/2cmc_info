@@ -4,9 +4,9 @@
     <div class="mx-auto text-center">
         <div>
         <label for="team">Team Draft:</label><input type="checkbox" id="team" name="team" wire:model="is_team_draft">
-        <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time" class="w-8 bg-slate-300">
+        <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time" class="w-8 bg-slate-300 rounded">
         </div>
-        <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name">
+        <input class="bg-slate-300 rounded" type="text" list="previous-players" value="" wire:model="new_player_name">
         <button wire:click.prevent="addPlayer()">Add Player</button><br />
         <datalist id="previous-players">
             @foreach($remaining_previous_players as $previous_player)
