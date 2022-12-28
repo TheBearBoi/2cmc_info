@@ -2,8 +2,10 @@
     @csrf
 {{--  Todo Move team draft and round timer to bottom of the page!  --}}
     <div class="mx-auto text-center">
+        <div>
         <label for="team">Team Draft:</label><input type="checkbox" id="team" name="team" wire:model="is_team_draft">
-        <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time"><br />
+        <label for="round-time">Round Timer (mins):</label> <input type="text" id="round-time" wire:model="round_time">
+        </div>
         <button wire:click.prevent="addPlayer()">Add Player</button>
         <input class="bg-slate-300" type="text" list="previous-players" value="" wire:model="new_player_name"><br />
         <datalist id="previous-players">
