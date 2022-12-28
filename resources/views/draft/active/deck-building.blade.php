@@ -7,7 +7,7 @@
                     <tr>
                         <td>{{ $seat->seat_number }}</td>
                         <td>{{ $seat->player->player_name }}</td>
-                        <td><livewire:deck-builder :seat="$seat" :wire:key="$seat->seat_id" /></td>
+{{--                        <td><livewire:deck-builder :seat="$seat" :wire:key="$seat->seat_id" /></td>--}}
                         <td><livewire:auto-deck-builder :seat="$seat" :wire:key="$seat->seat_id" /></td>
                     </tr>
                 @endforeach
