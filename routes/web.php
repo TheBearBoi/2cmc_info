@@ -37,7 +37,7 @@ Route::prefix('/cards/')->group(function () {
 });
 
 Route::get('/s/{id}', [CardController::class, 'sleeve'])
-    ->where('sleeve','[0-9]')
+    ->where('id','[0-9]')
     ->name('cards.sleeve');
 
 //--------------------------------------------------------------------------
@@ -65,6 +65,10 @@ Route::prefix('/decks')->group(function () {
         ->where('id',"[0-9]+")
         ->name('decks.show');
 });
+
+Route::get('/b/{id}',[DeckController::class, 'box'])
+    ->where('id','[0-9]')
+    ->name('decks.box');
 
 //--------------------------------------------------------------------------
 //Leaderboard Routes
