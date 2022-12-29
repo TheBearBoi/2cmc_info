@@ -37,7 +37,7 @@ Route::prefix('/cards/')->group(function () {
 });
 
 Route::get('/s/{id}', [CardController::class, 'sleeve'])
-    ->where('id','[0-9]')
+    ->where('id','[0-9]+')
     ->name('cards.sleeve');
 
 //--------------------------------------------------------------------------

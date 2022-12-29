@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('cube_list', function (Blueprint $table) {
             $table->unsignedSmallInteger('sleeve_id')->primary();
             $table->string('oracle_id');
-            $table->unsignedSmallInteger('layout_key_1');
-            $table->unsignedSmallInteger('layout_key_2');
+            $table->unsignedSmallInteger('layout_key_1')->nullable();
+            $table->unsignedSmallInteger('layout_key_2')->nullable();
         });
     }
 
