@@ -22,4 +22,9 @@ class CardFace extends Model
     {
         return $this->belongsTo(Card::class,'oracle_id','oracle_id');
     }
+
+    public function getHtmlManaCostAttribute()
+    {
+        return preg_replace('/({.+?})/','$1',$this->mana_cost);
+    }
 }

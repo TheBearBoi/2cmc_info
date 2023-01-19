@@ -2,12 +2,15 @@
 
 namespace App\View\Components\Shared;
 
+use App\Models\Player;
 use Illuminate\View\Component;
 
 class SideBar extends Component
 {
     public bool $leaderboard;
     public bool $current_draft;
+    public $current_leaderboard;
+
     /**
      * Create a new component instance.
      *
@@ -17,6 +20,12 @@ class SideBar extends Component
     {
         $this->leaderboard = $leaderboard;
         $this->current_draft = $currentdraft;
+        $this->current_leaderboard = Player::with('decks')
+            ->withSum('decks AS total_trophies', 'is_trophy')
+            ->groupBy('player_id')
+            ->orderBy('total_trophies', 'DESC')
+            ->take(5)
+            ->get();;
     }
 
     /**

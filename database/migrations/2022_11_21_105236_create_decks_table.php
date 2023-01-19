@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('losses')->default(0);
             $table->tinyInteger('draws')->default(0);
             $table->boolean('is_trophy')->default(false);
+            $table->float('win_rate')->generatedAs('100 * wins / (wins + losses + draws)'); //TODO Test generated collumn
         });
     }
 

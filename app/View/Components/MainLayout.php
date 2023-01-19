@@ -14,7 +14,7 @@ class MainLayout extends Component
      *
      * @return void
      */
-    public function __construct($leaderboard = true, $currentdraft = true)
+    public function __construct($leaderboard = false, $currentdraft = false)
     {
         $this->leaderboard = $leaderboard;
         $this->current_draft = $currentdraft;

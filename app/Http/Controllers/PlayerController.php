@@ -9,7 +9,7 @@ class PlayerController extends Controller
 {
     public function search()
     {
-
+        return view('player.search');
     }
 
     public function show($id)

@@ -6,11 +6,11 @@
             <x-slot:oracle_text>
                 @foreach($card->faces as $face)
                     <div>
-                        <div class='text-center'><div class='inline-block'>{{ $face->name }}</div><div class="inline-block m-xl-2">{{ $face->mana_cost }}</div></div>
-                        <p class='types'>{{ $face->type_line }}</p>
-                        <p class='rulesText'>{{ $face->oracle_text }}</p>
+                        <div class='text-center mb-6'><div class='inline-block text-2xl font-semibold'>{{ $face->name }}</div><div class="inline-block ml-2">{{ $face->html_mana_cost }}</div></div>
+                        <p class='text-lg my-2'>{{ $face->type_line }}</p>
+                        <p>{!! nl2br(e($face->oracle_text)) !!}</p>
                         @isset($face->power)
-                            <p class='powerTough'> {{ $face->power }}/{{ $face->toughness }} </p>
+                            <p class='text-right text-lg my-2'> {{ $face->power }}/{{ $face->toughness }} </p>
                         @endisset
                     </div>
                 @endforeach
@@ -18,8 +18,8 @@
             <x-slot:rulings>
                 @foreach($card->rulings as $ruling)
                     <tr>
-                        <td class='date'>{{ $ruling->ruling_date }}</td>
-                        <td class='ruling'>{{ $ruling->ruling_text }}</td>
+                        <td>{{ $ruling->ruling_date }}</td>
+                        <td>{{ $ruling->ruling_text }}</td>
                     </tr>
                 @endforeach
             </x-slot:rulings>
@@ -27,16 +27,16 @@
             <x-slot:play_rate>Played in the Maindeck {{ $card->main_deck_rate }}% of the time.</x-slot:play_rate>
             <x-slot:often_played_with>
                 @foreach($card->MostPlayedWith() as $row)
-                    <li><x-card.hover-link :card="$row['card']" /></li>
+                    <li class="text-sm"><x-card.hover-link :card="$row['card']" /></li>
                 @endforeach
             </x-slot:often_played_with>
             <x-slot:recent_decks>
                 @foreach($card->decks()->take(5)->get() as $deck)
-                    <tr>
+                    <tr class="text-sm text-left">
                         <td><a href={{ route('decks.show', $deck->deck_id) }}>{{ $deck->deck_name }}</a></td>
                         <td><a href={{ route('players.show', $deck->player->player_id) }}>{{ $deck->player->player_name }}</a></td>
                         <td>{{ $deck->wins }}-{{ $deck->losses }}-{{ $deck->draws }}</td>
-                        <td>{{ $deck->pivot->is_sideboard? 'Sideboard' : 'Main Deck' }}</td>
+                        <td>{{ $deck->pivot->is_sideboard? 'Side' : 'Main' }}</td>
                     </tr>
                 @endforeach
             </x-slot:recent_decks>

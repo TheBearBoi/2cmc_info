@@ -33,9 +33,8 @@ class Player extends Model
 
     public function getWinRateAttribute()
     {
-        $wins = $this->wins;
-        $games_played = $wins + $this->losses + $this->draws;
-        return round(($games_played == 0? 0 : 100 * $wins/$games_played), 2);
+        return $this->decks
+            ->avg('win_rate');
     }
 
     public function getWinsAttribute()

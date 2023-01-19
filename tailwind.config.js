@@ -5,9 +5,14 @@ module.exports = {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "./config/enums.php",
     ],
     theme: {
         extend: {},
+        data: {
+            active: 'active-page="1"',
+            inactive: 'active-page=""'
+        },
     },
     plugins: [],
 }

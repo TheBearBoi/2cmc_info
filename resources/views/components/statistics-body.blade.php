@@ -57,32 +57,58 @@ function createPieChart($result, $colors, $title, $radius = 300){
     return "<script>newPieChart(" . json_encode($data) . ",'" . $title . "')</script>";
 }
 ?>
+<div class="flex flex-wrap flex-auto justify-center items-start">
+    <div class="bg-slate-200 w-fit ring-black ring-1 rounded-md p-2 mx-2">
+        <h1 class="text-3xl font-semibold text-center">Leaderboards</h1>
+        <div class="flex flex-wrap flex-auto justify-center items-start">
+            <table class="mx-8 border-separate border-spacing-x-1">
+                <caption class="text-2xl font-semibold">Players</caption>
+                <tr class="text-center">
+                    <th></th>
+                    <th></th>
+                    <th>Win Rate</th>
+                </tr>
+                {{ $player_leaderboard }}
+            </table>
+            <table class="mx-8 border-separate border-spacing-x-1">
+                <caption class="text-2xl font-semibold">Cards</caption>
+                <tr class="text-center">
+                    <th></th>
+                    <th></th>
+                    <th>Win Rate</th>
+                </tr>
+                {{ $card_leaderboard }}
+            </table>
+        </div>
 
-<div class="stats_page_wrapper">
-    <div class="color_stats_wrapper">
-        {{--<?= createPieChart($color_stats,$colorChartColors, "Colors");?>--}}
-        <table>
-            <tr>
-                <th>Color</th>
-                <th>Times Drafted</th>
-                <th>Record</th>
-                <th>Total Trophies</th>
-                <th>Win Rate</th>
-            </tr>
-            {{ $color_stats }}
-        </table>
     </div>
-    <div class="archetype_stats_wrapper">
-        {{--<?= createPieChart($archetype_stats,$archetypeChartColors, "Archetypes");?>--}}
-        <table>
-            <tr>
-                <th>Archetype</th>
-                <th>Times Drafted</th>
-                <th>Record</th>
-                <th>Total Trophies</th>
-                <th>Win Rate</th>
-            </tr>
-            {{ $archetype_stats }}
-        </table>
+    <div class="bg-slate-200 w-fit ring-black ring-1 rounded-md p-2 mx-2">
+        <h1 class="text-3xl font-semibold text-center">Statistics</h1>
+        <div>
+            {{--<?= createPieChart($color_stats,$colorChartColors, "Colors");?>--}}
+            <table class="mx-8 border-separate border-spacing-x-1">
+                <tr>
+                    <th></th>
+                    <th>Color</th>
+                    <th>Draft #</th>
+                    <th>Record</th>
+                    <th>Win Rate</th>
+                </tr>
+                {{ $color_stats }}
+            </table>
+        </div>
+        <div>
+            {{--<?= createPieChart($archetype_stats,$archetypeChartColors, "Archetypes");?>--}}
+            <table class="mx-8 border-separate border-spacing-x-1">
+                <tr>
+                    <th></th>
+                    <th>Archetype</th>
+                    <th>Draft #</th>
+                    <th>Record</th>
+                    <th>Win Rate</th>
+                </tr>
+                {{ $archetype_stats }}
+            </table>
+        </div>
     </div>
 </div>
