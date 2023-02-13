@@ -2,21 +2,36 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Deck;
-use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
+/**
+ * Livewire Component for the Manual Deckbuilder
+ * TODO merge with popup compoonent
+ *
+ * @package App\Http\Livewire
+ */
 class DeckBuilder extends Component
 {
-    public $seat;
-    public $showManualDeckBuilder;
+    public int $seat;
+    public bool $showManualDeckBuilder;
 
-    public function mount()
+    /**
+     * Generate the default values for the livewire component
+     *
+     * @return void
+     */
+    public function mount(): void
     {
         $this->showManualDeckBuilder = false;
     }
 
-    public function render()
+    /**
+     * Render the Livewire component.
+     *
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.deck-builder');
     }

@@ -2,8 +2,14 @@
 
 namespace App\View\Components\Card;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+/**
+ * Component for laying out the body of the Card Show page
+ *
+ * @package App\View\Components\Card
+ */
 class ShowBody extends Component
 {
     /**
@@ -19,7 +25,7 @@ class ShowBody extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
     public function render()
     {

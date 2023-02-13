@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('card_faces', function (Blueprint $table) {
-            //card part db: (oracle_id, face_id) UNIQUE FOR INDEX, name, mana_cost, type_line, oracle_text, power, toughness, small image uri, normal image uri, large image uri, png, art_crop, border_crop, colors as binary (wubrg -> 11111),
             $table->id('face_id');
             $table->string('oracle_id');
             $table->integer('face_number')->default(0);

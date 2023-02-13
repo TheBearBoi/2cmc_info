@@ -1,10 +1,16 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Draft\Active;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LeaderboardBody extends Component
+/**
+ * Component for laying out the Matches Phase Page
+ *
+ * @package App\View\Components\Draft\Active
+ */
+class MatchesBody extends Component
 {
     /**
      * Create a new component instance.
@@ -19,10 +25,10 @@ class LeaderboardBody extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
     public function render()
     {
-        return view('components.leaderboard-body');
+        return view('components.draft.active.matches-body');
     }
 }

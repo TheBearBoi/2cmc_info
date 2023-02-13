@@ -18,7 +18,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('cards');
         Schema::create('cards', function (Blueprint $table) {
-            //card db: oracle id, name, layout, cmc, color as binary
             $table->string('oracle_id')->primary();
             $table->string('name'); // have // in name for split cards
             $table->string('layout');

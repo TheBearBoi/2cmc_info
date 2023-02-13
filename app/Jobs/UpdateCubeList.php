@@ -11,26 +11,22 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Job to update the internal cube list using a manually imported csv
+ *
+ * @package App\Jobs
+ */
 class UpdateCubeList implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
-     * Execute the job.
+     * Update the cube list using the manually imported csv
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $handle = fopen("storage/app/cube_list.csv", "r");
         if ($handle) {

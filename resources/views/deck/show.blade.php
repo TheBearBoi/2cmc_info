@@ -9,7 +9,7 @@
             <x-slot:archetype>{{ $deck->archetype }}</x-slot:archetype>
             <x-slot:main_deck>
                 @foreach($deck->main_deck()->get() as $card)
-                    <li>{{ $card->pivot->quantity }}x <x-card.hover-link :card="$card" /></li>
+                    <div class="w-fit">{{ $card->pivot->quantity }}x <x-card.hover-link :card="$card" /></div>
                 @endforeach
             </x-slot:main_deck>
             <x-slot:sideboard>

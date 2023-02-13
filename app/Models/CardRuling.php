@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Model for the Card Rulings Object
+ *
+ * @package App\Models
+ */
 class CardRuling extends Model
 {
     public $timestamps = false;
@@ -13,9 +18,12 @@ class CardRuling extends Model
 
     protected $table = 'card_rulings';
 
-    use HasFactory;
-
-    public function card()
+    /**
+     * Get the Card object this ruling belongs to
+     *
+     * @return BelongsTo
+     */
+    public function card(): BelongsTo
     {
         return $this->belongsTo(Card::class,'oracle_id','oracle_id');
     }

@@ -6,22 +6,30 @@ use App\Models\Card;
 use App\Models\Deck;
 use App\Models\DeckContent;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Illuminate\Support\Collection;
 
+/**
+ * Livewire Component for the Manual Deckbuilder popup
+ * TODO Rewrite, to be inline with autodeck builder.
+ *
+ * @package App\Http\Livewire
+ */
 class DeckBuilderPopup extends Component
 {
-    public $seat;
-    public $deck_name;
-    public $archetype;
-    public $main_deck;
-    public $sideboard;
+    public int $seat;
+    public string $deck_name;
+    public string $archetype;
+    public string $main_deck;
+    public string $sideboard;
 
-    public function render()
-    {
-        return view('livewire.deck-builder-popup');
-    }
-
-    public function submitNewDeck()
+    /**
+     * Create a new deck based on the values entered
+     *
+     * @return void
+     */
+    public function submitNewDeck(): void
     {
         Debugbar::addMessage($this->deck_name);
         $deck = Deck::create([
@@ -58,5 +66,15 @@ class DeckBuilderPopup extends Component
             ]);
         }
         $this->emitUp('hideManualDeckBuilder');
+    }
+
+    /**
+     * Render the Livewire component.
+     *
+     * @return View
+     */
+    public function render(): View
+    {
+        return view('livewire.deck-builder-popup');
     }
 }

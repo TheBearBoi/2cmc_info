@@ -2,8 +2,14 @@
 
 namespace App\View\Components\Deck;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+/**
+ * Component for laying out the body of the Deck Show page
+ *
+ * @package App\View\Components\Deck
+ */
 class ShowBody extends Component
 {
     /**
@@ -19,9 +25,9 @@ class ShowBody extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('components.deck.show-body');
     }

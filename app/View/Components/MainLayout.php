@@ -2,8 +2,14 @@
 
 namespace App\View\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+/**
+ * Component for laying out the page (sidebars, navbars and the wrapper for the main content)
+ *
+ * @package App\View\Components
+ */
 class MainLayout extends Component
 {
     public bool $leaderboard;
@@ -23,9 +29,9 @@ class MainLayout extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('components.main-layout');
     }

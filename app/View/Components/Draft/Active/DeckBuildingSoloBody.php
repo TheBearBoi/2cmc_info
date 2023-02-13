@@ -1,16 +1,16 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Draft\Active;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 /**
- * Component for laying out the statistics & leaderboard page
+ * Component for laying out the Solo Deck Building Phase Page
  *
- * @package App\View\Components
+ * @package App\View\Components\Draft\Active
  */
-class StatisticsBody extends Component
+class DeckBuildingSoloBody extends Component
 {
     /**
      * Create a new component instance.
@@ -27,8 +27,8 @@ class StatisticsBody extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
-        return view('components.statistics-body');
+        return view('components.draft.active.deck-building-solo-body');
     }
 }

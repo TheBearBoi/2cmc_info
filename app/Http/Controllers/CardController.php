@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\CubeList;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 
+/**
+ * Controller for Card Pages
+ *
+ * @package App\Http\Controllers
+ */
 class CardController extends Controller
 {
-    public function search()
-    {
 
-    }
-
-    public function show($name)
+    /**
+     * Access the page for a specific card, selected by name
+     *
+     * @param string $name
+     * @return View
+     */
+    public function show(string $name): View
     {
         $name = str_replace(['+','_'], " ", $name);
         $card = Card::firstWhere('name', $name);
@@ -22,7 +28,13 @@ class CardController extends Controller
         return view('card.show', ['card' => $card]);
     }
 
-    public function sleeve($id)
+    /**
+     * Access the page for a specific card, selected by sleeve id
+     *
+     * @param int $id
+     * @return View
+     */
+    public function sleeve(int $id): View
     {
         $card = CubeList::firstWhere('sleeve_id', $id)->card;
 

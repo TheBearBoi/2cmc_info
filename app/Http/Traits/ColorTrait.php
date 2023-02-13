@@ -2,11 +2,19 @@
 
 namespace App\Http\Traits;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-
+/**
+ * Trait for accessing color as a string instead of an abbreviation
+ *
+ * @package App\Http\Traits
+ */
 trait ColorTrait
 {
-    protected $colorDict = [
+    /**
+     * Dictionary of all the unabbreviated color names
+     *
+     * @var array|string[]
+     */
+    protected array $colorDict = [
         "" => "Colorless",
         "W" => "White",
         "U" => "Blue",
@@ -41,7 +49,13 @@ trait ColorTrait
         "WUBRG" => "Five Color"
     ];
 
-    public function getColorAttribute($value)
+    /**
+     * Attribute for validating the color string formatting, and returning the name from the dictionary.
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getColorAttribute(string $value): string
     {
         $color =  (str_contains($value, 'W') ? 'W' : '')
                 . (str_contains($value, 'U') ? 'U' : '')

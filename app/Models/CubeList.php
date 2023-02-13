@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Model for the Cube List Entry Object
+ *
+ * @package App\Models
+ */
 class CubeList extends Model
 {
     protected $guarded = [];
@@ -16,10 +20,13 @@ class CubeList extends Model
 
     protected $with = ['card'];
 
-    public function card()
+    /**
+     * Get the Card object this Cube List Entry belongs to
+     *
+     * @return BelongsTo
+     */
+    public function card(): BelongsTo
     {
         return $this->belongsTo(Card::class,'oracle_id','oracle_id');
     }
-
-    use HasFactory;
 }

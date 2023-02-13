@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Model for the Draft Object
+ *
+ * @package App\Models
+ */
 class Draft extends Model
 {
     public $timestamps = false;
@@ -16,26 +22,43 @@ class Draft extends Model
 
     protected $fillable = ['phase', 'is_team_draft', 'round_time', 'round_end_time'];
 
-    //tie to matches and seats directly, decks and players indirectly
-    public function seats()
+    /**
+     * Get the seats for this draft
+     *
+     * @return HasMany
+     */
+    public function seats(): HasMany
     {
         return $this->hasMany(DraftSeat::class, 'draft_id', 'draft_id');
     }
 
-    public function matches()
+    /**
+     * Get the matches for this draft
+     *
+     * @return HasMany
+     */
+    public function matches(): HasMany
     {
         return $this->hasMany(DraftMatch::class, 'draft_id', 'draft_id');
     }
 
-    public function players()
+    /**
+     * Get the players playing in this draft
+     *
+     * @return BelongsToMany
+     */
+    public function players(): BelongsToMany
     {
         return $this->belongsToMany(Player::class, 'draft_seats', 'player_id', 'draft_id', 'draft_id', 'player_id');
     }
 
-    public function decks()
+    /**
+     * Get the decks being played in this draft
+     *
+     * @return BelongsToMany
+     */
+    public function decks(): BelongsToMany
     {
         return $this->belongsToMany(Deck::class,'draft_seats',  'deck_id', 'draft_id', 'draft_id', 'deck_id');
     }
-
-    use HasFactory;
 }

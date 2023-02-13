@@ -2,12 +2,20 @@
 
 namespace App\View\Components\Card;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
+/**
+ * Component for generating a primary image element of the card,
+ * that will transform when clicked, if the card transforms.
+ *
+ * @package App\View\Components\Card
+ */
 class PrimaryImage extends Component
 {
     public Model $card;
+
     /**
      * Create a new component instance.
      *
@@ -21,9 +29,9 @@ class PrimaryImage extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('components.card.primary-image');
     }

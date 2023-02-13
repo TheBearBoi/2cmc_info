@@ -1,10 +1,16 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Draft\Active;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class draft.active.deck-building-teams-body extends Component
+/**
+ * Component for laying out the Teams Deck Building Phase Page
+ *
+ * @package App\View\Components\Draft\Active
+ */
+class DeckBuildingTeamsBody extends Component
 {
     /**
      * Create a new component instance.
@@ -19,7 +25,7 @@ class draft.active.deck-building-teams-body extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
     public function render()
     {

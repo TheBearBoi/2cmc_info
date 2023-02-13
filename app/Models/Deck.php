@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\ColorTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
+/**
+ * Model for the Deck Object
+ *
+ * @package App\Models
+ */
 class Deck extends Model
 {
     use ColorTrait;
@@ -26,34 +34,57 @@ class Deck extends Model
 
     protected $table = 'decks';
 
-    public function main_deck()
+    /**
+     * Get the Card objects for each card in this decks main deck
+     *
+     * @return BelongsToMany
+     */
+    public function main_deck(): BelongsToMany
     {
         return $this->belongsToMany(Card::class, 'deck_contents','deck_id','oracle_id')
             ->where('is_sideboard',false)
             ->withPivot('quantity');
     }
 
-    public function sideboard()
+    /**
+     * Get the Card objects for each card in this decks sideboard
+     *
+     * @return BelongsToMany
+     */
+    public function sideboard(): BelongsToMany
     {
         return $this->belongsToMany(Card::class, 'deck_contents','deck_id','oracle_id')
             ->where('is_sideboard',true)
             ->withPivot('quantity');
     }
 
-    public function player()
+    /**
+     * Get the player who played this deck
+     *
+     * @return BelongsTo
+     */
+    public function player(): BelongsTo
     {
         return $this->belongsTo(Player::class,'player_id', 'player_id');
     }
 
-    public function draft_seat()
+    /**
+     * Get the seat this deck was played in
+     *
+     * @return HasOne
+     */
+    public function draft_seat(): HasOne
     {
         return $this->hasOne(DraftSeat::class);
     }
 
-    public function draft()
+    /**
+     * Get the draft this deck was drafted in
+     *
+     * @return HasOneThrough
+     */
+    public function draft(): HasOneThrough
     {
         return $this->hasOneThrough(Draft::class,DraftSeat::class,);
     }
-
-    use HasFactory;
 }

@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\CubeList;
-use Illuminate\Http\Request;
 
+/**
+ * Controller for the Cube List Api Call
+ *
+ * @package App\Http\Controllers
+ */
 class CubeListAPIController extends Controller
 {
-    public function getCubeList()
+
+    /**
+     * Returns the cube list, as a json string
+     *
+     * @return string
+     */
+    public function getCubeList(): string
     {
         return CubeList::get()
         ->map(function ($item) {

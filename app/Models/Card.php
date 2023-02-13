@@ -5,7 +5,15 @@ namespace App\Models;
 use App\Http\Traits\ColorTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Model for the Card Object
+ *
+ * @package App\Models
+ */
 class Card extends Model
 {
     use ColorTrait;
@@ -20,70 +28,129 @@ class Card extends Model
 
     protected $table = 'cards';
 
-    public function faces()
+    /**
+     * Get all the card faces for the card
+     *
+     * @return HasMany
+     */
+    public function faces(): HasMany
     {
         return $this->hasMany(CardFace::class,'oracle_id','oracle_id');
     }
 
-    public function cube_list_entry()
+    /**
+     * If the card is in the cube, get its cube list entry
+     *
+     * @return BelongsTo
+     */
+    public function cube_list_entry(): BelongsTo
     {
         return $this->belongsTo(CubeList::class,'oracle_id','oracle_id');
     }
 
-    public function rulings()
+    /**
+     * Get all rulings for the card
+     *
+     * @return HasMany
+     */
+    public function rulings(): HasMany
     {
         return $this->hasMany(CardRuling::class,'oracle_id','oracle_id');
     }
 
-    public function decks()
+    /**
+     * Get all decks this card has been played in
+     *
+     * @return BelongsToMany
+     */
+    public function decks(): BelongsToMany
     {
         return $this->belongsToMany(Deck::class, 'deck_contents','oracle_id','deck_id','oracle_id','deck_id')
             ->withPivot('is_sideboard');
     }
 
-    public function main_decks()
+    /**
+     * Get all decks this card has been played in the main deck of
+     *
+     * @return BelongsToMany
+     */
+    public function main_decks(): BelongsToMany
     {
         return $this->belongsToMany(Deck::class, 'deck_contents','oracle_id','deck_id','oracle_id','deck_id')
             ->wherePivot('is_sideboard', false);
     }
 
-    public function deck_contents()
+    /**
+     * Get all of this cards deck_contents db entries
+     *
+     * @return HasMany
+     */
+    public function deck_contents(): HasMany
     {
         return $this->hasMany(DeckContent::class, 'oracle_id','oracle_id');
     }
 
-    public function getWinRateAttribute()
+    /**
+     * Get the win rate of this card, for all decks it has been main decked in
+     *
+     * @return float|int|null
+     */
+    public function getWinRateAttribute(): float|int|null
     {
-        return $this->decks
+        return $this->main_decks
             ->avg('win_rate');
     }
 
-    public function getWinsAttribute()
+    /**
+     * Get the total wins for this card, when main decked
+     *
+     * @return int
+     */
+    public function getWinsAttribute(): int
     {
         return $this->getRecordValues('wins');
     }
 
-    public function getLossesAttribute()
+    /**
+     * Get the total losses for this card, when main decked
+     *
+     * @return int
+     */
+    public function getLossesAttribute(): int
     {
         return $this->getRecordValues('losses');
     }
 
-    public function getDrawsAttribute()
+    /**
+     * Get the total draws for this card, when main decked
+     *
+     * @return int
+     */
+    public function getDrawsAttribute(): int
     {
         return $this->getRecordValues('draws');
     }
 
-    public function getTrophiesAttribute()
+    /**
+     * Get the total trophies for this card, when main decked
+     *
+     * @return int
+     */
+    public function getTrophiesAttribute(): int
     {
         return $this->getRecordValues('is_trophy');
     }
 
-    public function MostPlayedWith()
+    /**
+     * Get the top 5 other nonbasic cards that are played together with this card
+     *
+     * @return array
+     */
+    public function MostPlayedWith(): array
     {
         $array = [];
         //rewrite to check based on pivot table
-         $cards = $this->decks()
-             ->wherePivot('is_sideboard',false)
+         $cards = $this->main_decks()
              ->get()
              ->flatMap(function ($deck) {
                  return $deck->main_deck()
@@ -102,24 +169,34 @@ class Card extends Model
         return $array;
     }
 
-    public function getMainDeckRateAttribute()
+    /**
+     * Get the percentage of the time this card is played in the main deck
+     *
+     * @return float|int
+     */
+    public function getMainDeckRateAttribute(): float|int
     {
-        if ($this->decks()->count() == 0)
+        $times_played = $this->decks->count();
+        if ($times_played == 0)
         {
             return 0;
         }
         return round(
             100 *
-            $this->decks()->wherePivot('is_sideboard', false)->count()
-            / $this->decks()->count(),
+            $this->main_decks->count()
+            / $times_played,
         2);
     }
 
-    protected function getRecordValues($v)
+    /**
+     * Helper function for accessing the record of the card.
+     *
+     * @param string $v
+     * @return int
+     */
+    protected function getRecordValues(string $v): int
     {
         return $this->main_decks
             ->sum($v);
     }
-
-    use HasFactory;
 }

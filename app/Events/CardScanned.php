@@ -5,12 +5,16 @@ namespace App\Events;
 use App\Models\Card;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Event for when a user has scanned a new card using the NFC reader.
+ *
+ * @package App\Events
+ */
 class CardScanned implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -20,9 +24,10 @@ class CardScanned implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
+     * @param string $oracle_id
      * @return void
      */
-    public function __construct($oracle_id)
+    public function __construct(string $oracle_id)
     {
         $this->card = Card::find($oracle_id);//
     }
@@ -30,13 +35,19 @@ class CardScanned implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel|PrivateChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): Channel|PrivateChannel
     {
         return new PrivateChannel('scanner');
     }
-    public function broadcastWith()
+
+    /**
+     * Specify the paramaters to be brodcasted
+     *
+     * @return array
+     */
+    public function broadcastWith(): array
     {
         return ['oracle_id' => $this->card->oracle_id];
     }

@@ -6,60 +6,60 @@ use App\Models\Card;
 use App\Models\CardFace;
 use App\Models\CardRuling;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
+/**
+ * Job to update the internal card database using the scryfall api
+ *
+ * @package App\Jobs
+ */
 class UpdateCardDatabases implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    // Card layouts we want to store
+    private array $CardLayouts = [
+        "normal",
+        "meld",
+        "leveler",
+        "class",
+        "saga",
+        "split",
+        "flip",
+        "transform",
+        "modal_dfc",
+        "adventure"
+    ];
 
     /**
      * Execute the job.
      *
      * @return void
+     * @throws GuzzleException
      */
-    public function handle()
+    public function handle(): void
     {
         $client = new Client();
 
+        // Grab information about where to download the bulk data
         $res = $client->request('GET', 'https://api.scryfall.com/bulk-data');
 
         $result = json_decode($res->getBody());
         $card_download_data = $result->data[0];
         $rulings_download_data = $result->data[4];
 
+        // Download the bulk data
         $card_download_url = $card_download_data->download_uri;
         $rulings_download_url = $rulings_download_data->download_uri;
         $client->request('GET', $card_download_url, ['sink' => 'storage/app/card_database.json']);
         $client->request('GET', $rulings_download_url, ['sink' => 'storage/app/rulings_database.json']);
 
-        $CardLayoutArray = array(
-            "normal",
-            "meld",
-            "leveler",
-            "class",
-            "saga",
-            "split",
-            "flip",
-            "transform",
-            "modal_dfc",
-            "adventure"
-        );
 
+        // Go through the card json line by line, and store information about the cards
         $handle = fopen("storage/app/card_database.json", "r");
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
@@ -68,7 +68,7 @@ class UpdateCardDatabases implements ShouldQueue
                 }
                 preg_match('/{.+}/', $line, $card_json_array);
                 $card_json = json_decode($card_json_array[0], true);
-                if (!in_array($card_json["layout"], $CardLayoutArray)) {
+                if (!in_array($card_json["layout"], $this->CardLayouts)) {
                     continue;
                 }
                 echo $card_json["name"] . PHP_EOL;
@@ -126,6 +126,7 @@ class UpdateCardDatabases implements ShouldQueue
 
         fclose($handle);
 
+        // Go through the rulings json line by line, and store all the rulings
         $handle = fopen("storage/app/rulings_database.json", "r");
         if ($handle) {
             while (($line = fgets($handle)) !== false) {

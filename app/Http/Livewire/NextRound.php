@@ -5,32 +5,45 @@ namespace App\Http\Livewire;
 use App\Models\Draft;
 use App\Models\DraftMatch;
 use App\Models\DraftSeat;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
-
+/**
+ * Livewire Component for the Next Round Button
+ *
+ * @package App\Http\Livewire
+ */
 class NextRound extends Component
 {
-    public $label;
+    public string $label;
     public Draft $draft;
-    public $seats;
+    public Collection $seats;
 
-    public function mount()
+    /**
+     * Generate the default values for the livewire component
+     *
+     * @return void
+     */
+    public function mount(): void
     {
         $this->seats = $this->draft->seats;
     }
 
-    public function render()
-    {
-        return view('livewire.next-round');
-    }
-
-    public function next_round()
+    /**
+     * Validate if the round is ready to advance. If it is, Create the pairings and redirect the users to the active draft page.
+     * If not, return false and dispatch a Missing Data browser event.
+     *
+     * @return false|RedirectResponse
+     */
+    public function next_round(): bool|RedirectResponse
     {
         $draft = $this->draft;
         $seats = $this->seats;
         $round_number = $draft->phase - 2;
         $matches = $draft->matches;
+
         $current_round_matches = $matches->where('round_number', $round_number);
         if($round_number == 0 AND $seats->where('deck_id', NULL)->count() >0){
             $this->dispatchBrowserEvent('MissingData', ['type' => 'decks']);
@@ -58,7 +71,13 @@ class NextRound extends Component
         return redirect()->route('drafts.active');
     }
 
-    private function update_deck_record($match)
+    /**
+     * Update the records for the decks playing in the current match.
+     *
+     * @param DraftMatch $match
+     * @return void
+     */
+    private function update_deck_record(DraftMatch $match): void
     {
         $player_1_wins = $match->player_1_wins;
         $deck_1 = $match->seat_1->deck;
@@ -81,13 +100,28 @@ class NextRound extends Component
         if($deck_2) {$deck_2->save();}
     }
 
-    private function has_outstanding_matches($matches): bool
+    /**
+     * Check if the current round had any outstanding matches.
+     *
+     * @param Collection<DraftMatch> $matches
+     * @return bool
+     */
+    private function has_outstanding_matches(Collection $matches): bool
     {
         $outstanding_matches = $matches->where('is_submitted', false)->count();
         return $outstanding_matches > 0;
     }
 
-    private function create_pairings($seats, $matches, $draft)
+    /**
+     * Generate Pairings For the next solo round
+     * TODO Comment code process
+     *
+     * @param Collection<DraftSeat> $seats
+     * @param Collection<DraftMatch> $matches
+     * @param $draft
+     * @return void
+     */
+    private function create_pairings(Collection $seats, Collection $matches, $draft): void
     {
         $round_number = $draft->phase - 2;
 
@@ -140,7 +174,15 @@ class NextRound extends Component
         }
     }
 
-    private function create_team_pairings($seats, $draft)
+    /**
+     * Generate Pairings For the next teams round
+     * TODO Comment code process
+     *
+     * @param Collection<DraftSeat> $seats
+     * @param Draft $draft
+     * @return void
+     */
+    private function create_team_pairings(Collection $seats, Draft $draft): void
     {
         $round_number = $draft->phase - 2;
 
@@ -176,5 +218,15 @@ class NextRound extends Component
                 $draft_match->save();
             }
         }
+    }
+
+    /**
+     * Render the Livewire component.
+     *
+     * @return View
+     */
+    public function render(): View
+    {
+        return view('livewire.next-round');
     }
 }

@@ -2,62 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CardScanned;
-use App\Models\Card;
 use App\Models\Draft;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
+/**
+ * Controller for Draft Pages
+ *
+ * @package App\Http\Controllers
+ */
 class DraftController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * TODO Display a listing of previous drafts
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         //
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new draft
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('draft.create');
     }
 
-    public function dashboard()
+
+    /**
+     * Displays the currently active draft
+     *
+     * @return View
+     */
+    public function dashboard(): View
     {
         $draft = Draft::orderBy('draft_id', 'desc')->first();
         switch($draft->phase)
         {
-            case 1:
+            case 1:  // Drafting Phase
                 return view('draft.active.drafting', ['draft' => $draft]);
-            case 2:
+            case 2:  // Deck Building Phase
                 if($draft->is_team_draft)
                 {
                     return view('draft.active.deck-building-teams', ['draft' => $draft]);
                 } else
                 {
-                    return view('draft.active.deck-building', ['draft' => $draft]);
+                    return view('draft.active.deck-building-solo', ['draft' => $draft]);
                 }
-            case 3:
+            case 3:  // Matches Phases
             case 4:
             case 5:
                 return view('draft.active.matches', ['draft' => $draft]);
+            default:
+                // If the match is over, return the page for creating a new draft.
+                //TODO add standings page, and return that at the end.
+                return view('draft.create');
         }
 
-    }
-
-    public function test()
-    {
-        $card = Card::find('c9b82110-7dfd-4617-9399-9510be449043');
-        CardScanned::dispatch($card);
-//        broadcast(new CardScanned($card));
-        return view('draft.test');
     }
 
     /**
@@ -72,46 +78,12 @@ class DraftController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * TODO Display the specified draft, by id
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function show(int $id): View
     {
         //
     }

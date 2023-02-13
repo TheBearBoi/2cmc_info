@@ -1,7 +1,7 @@
 <x-main-layout :currentdraft="false">
     <x-slot:title>Active Draft</x-slot:title>
     <x-slot:body>
-        <x-draft.active.deck-building-body :draft="$draft">
+        <x-draft.active.deck-building-solo-body :draft="$draft">
             <x-slot:players>
                 @foreach($draft->seats as $seat)
                     <tr>
@@ -12,6 +12,6 @@
                     </tr>
                 @endforeach
             </x-slot:players>
-        </x-draft.active.deck-building-body>
+        </x-draft.active.deck-building-solo-body>
     </x-slot:body>
 </x-main-layout>

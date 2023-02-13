@@ -3,19 +3,28 @@
 namespace App\Http\Livewire;
 
 use App\Models\Draft;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
 
+/**
+ * Livewire Component for the Button to advance to deck-building.
+ *
+ * @package App\Http\Livewire
+ */
 class ToDeckBuilding extends Component
 {
-    public $label;
+    public string $label;
     public Draft $draft;
 
-    public function render()
-    {
-        return view('livewire.to-deck-building', ['label' => $this->label]);
-    }
-
-    public function to_deck_building()
+    /**
+     * If the draft is a team draft, assign teams, then advance the draft phase to deck building
+     * and redirect to the active draft page.
+     * TODO comment code process
+     *
+     * @return RedirectResponse
+     */
+    public function to_deck_building(): RedirectResponse
     {
         if ($this->draft->is_team_draft)
         {
@@ -35,5 +44,15 @@ class ToDeckBuilding extends Component
         $this->draft->phase = 2;
         $this->draft->save();
         return redirect()->route('drafts.active');
+    }
+
+    /**
+     * Render the Livewire component.
+     *
+     * @return View
+     */
+    public function render(): View
+    {
+        return view('livewire.to-deck-building', ['label' => $this->label]);
     }
 }
