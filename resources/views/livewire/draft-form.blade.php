@@ -14,6 +14,7 @@
             @endforeach
         </datalist>
         <button type="submit" value="createDraft()" class="mx-auto">Create New Draft</button>
+        @error('player_count') <div class="error">{{ $message }}</div> @enderror
     </div>
     <table class="mx-auto">
     @foreach($draft_seats as $key => $draft_seat)

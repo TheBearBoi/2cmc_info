@@ -3,9 +3,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "sailup": "./vendor/bin/sail up -d",
+        "sailup": "./vendor/bin/sail up -d; ./vendor/bin/sail php artisan websockets:serve",
         "saildown": "./vendor/bin/sail down",
-        "sailrestart": "./vendor/bin/sail down; ./vendor/bin/sail up -d",
+        "sailrestart": "./vendor/bin/sail down; ./vendor/bin/sail up -d; ./vendor/bin/sail php artisan websockets:serve",
         "phpini": "sudo nano /etc/php/8.1/cli/php.ini"
     },
     "devDependencies": {

@@ -24,7 +24,7 @@ class ToDeckBuilding extends Component
      *
      * @return RedirectResponse
      */
-    public function to_deck_building(): RedirectResponse
+    public function to_deck_building()
     {
         if ($this->draft->is_team_draft)
         {

@@ -57,7 +57,7 @@ class AutoDeckBuilder extends Component
     public function getListeners(): array
     {
         return [
-            "echo-private:scanner,.client-CardScanned-{$this->seat->seat_number}" => 'update_last_card'
+            "echo-private:scanner,.client-CardsScanned-{$this->seat->seat_number}" => 'update_last_card'
         ];
     }
 
@@ -97,9 +97,13 @@ class AutoDeckBuilder extends Component
     public function update_last_card(array $data): void
     {
         if (!$this->open) return;
-        $this->most_recent_card = CubeList::find($data['sleeve_id'])->card;
-        if ($data['main_deck']) {$this->main_deck->push($this->most_recent_card);}
-        else {$this->sideboard->push($this->most_recent_card);}
+        $card_uids = json_decode($data['uids'], true);
+
+        foreach ($card_uids as $card_uid) {
+            $card = CubeList::find($card_uid)->card;
+            if ($data['main_deck']) {$this->main_deck->push($card);}
+            else {$this->sideboard->push($card);}
+        }
     }
 
     /**

@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 
 // TODO add default validation for certain params (id&name)
 Route::view('/debug', 'debug');
@@ -111,6 +115,7 @@ Route::prefix('/drafts')->group(function () {
 
 //});
 
+
 //--------------------------------------------------------------------------
 //Redirects
 //--------------------------------------------------------------------------
@@ -126,6 +131,7 @@ Route::get('/s/{id}', function ($id) {
 Route::get('/b/{id}', function ($id) {
     return redirect()->route('decks.box', ['id' => $id]);
 }); // Deck Box Page
+
 
 Auth::routes();
 

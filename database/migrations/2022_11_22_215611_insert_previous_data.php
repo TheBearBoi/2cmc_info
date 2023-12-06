@@ -41,7 +41,7 @@ return new class extends Migration
                 $deck_content = new DeckContent;
                 $deck_content->deck_id = $line[0];
                 echo $line[1];
-                $deck_content->oracle_id = DB::table('cards')->where('name', $line[1])->first()->oracle_id;
+                $deck_content->oracle_id = DB::table('cards')->where('name', $line[1])->first()->uuid;
                 $deck_content->quantity = $line[3];
                 $deck_content->is_sideboard = $line[2];
 

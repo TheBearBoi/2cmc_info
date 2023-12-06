@@ -1,23 +1,6 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    nginx:
-        image: 'nginx:latest'
-        ports:
-            - '${HTTP_PORT:-8000}:80'
-            - '${SSL_PORT:-443}:443'
-        environment:
-            - SSL_PORT=${SSL_PORT:-443}
-            - APP_SERVICE=${APP_SERVICE:-laravel.test}
-            - SERVER_NAME=${SERVER_NAME:-localhost}
-        volumes:
-            - 'sail-nginx:/etc/nginx/certs'
-            - './vendor/ryoluo/sail-ssl/nginx/templates:/etc/nginx/templates'
-            - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
-        depends_on:
-            - ${APP_SERVICE:-laravel.test}
-        networks:
-            - sail
     laravel.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
@@ -30,9 +13,6 @@ services:
         ports:
             - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-            - '3000:3000'
-            - '${LARAVEL_WEBSOCKETS_PORT:-6001}:6001'
-            - '3001:3001'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -44,7 +24,6 @@ services:
             - sail
         depends_on:
             - mysql
-            - redis
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -65,25 +44,9 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
-    redis:
-        image: 'redis:alpine'
-        ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
-        volumes:
-            - 'sail-redis:/data'
-        networks:
-            - sail
-        healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
-            retries: 3
-            timeout: 5s
 networks:
     sail:
         driver: bridge
 volumes:
-    sail-nginx:
-        driver: local
     sail-mysql:
-        driver: local
-    sail-redis:
         driver: local

@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Card;
 
+use App\Models\Card;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
@@ -14,7 +15,7 @@ use Illuminate\View\Component;
  */
 class PrimaryImage extends Component
 {
-    public Model $card;
+    public Card $card;
 
     /**
      * Create a new component instance.

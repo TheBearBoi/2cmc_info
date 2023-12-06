@@ -1,0 +1,4 @@
+Important Sources for Card Data:
+All Cards: https://mtgjson.com/
+Mana Symbols, and other cost symbols: https://scryfall.com/docs/api/card-symbols/all
+Set Symbols: https://keyrune.andrewgioia.com/index.html

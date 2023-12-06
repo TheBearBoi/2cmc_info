@@ -37,7 +37,7 @@ class NextRound extends Component
      *
      * @return false|RedirectResponse
      */
-    public function next_round(): bool|RedirectResponse
+    public function next_round()
     {
         $draft = $this->draft;
         $seats = $this->seats;

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Draft;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Symfony\Component\ErrorHandler\Debug;
 
 /**
  * Controller for Draft Pages

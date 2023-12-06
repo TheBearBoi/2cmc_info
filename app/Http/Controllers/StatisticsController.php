@@ -33,10 +33,9 @@ class StatisticsController extends Controller
 
         // Get top 50 cards by trophies then win rate
         $cards_and_records = Card::has('main_decks')
-            ->where('is_basic', false)
-            ->withSum('decks AS total_trophies', 'is_trophy')
-            ->withAvg('decks AS calc_win_rate', 'win_rate')
-            ->groupBy('oracle_id')
+            ->where('supertypes', 'not like', "%Basic%")
+            ->withSum('main_decks AS total_trophies', 'is_trophy')
+            ->withAvg('main_decks AS calc_win_rate', 'win_rate') //TODO make winrate calculate main deck winrate
             ->orderBy('total_trophies', 'DESC')
             ->orderBy('calc_win_rate', 'DESC')
             ->take(50)

@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-/**
- * TODO Remove this controller.
- *
- * @package App\Http\Controllers
- */
 class HomeController extends Controller
 {
     /**

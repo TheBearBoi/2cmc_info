@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Draft\Active;
 
+use App\Models\Draft;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -17,10 +18,8 @@ class DeckBuildingTeamsBody extends Component
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public Draft $draft)
+    {}
 
     /**
      * Get the view / contents that represent the component.

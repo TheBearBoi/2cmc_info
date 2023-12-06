@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,7 +14,11 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('scanner', function ($user, $auth = "") {
+Broadcast::channel('scanner', function (User $user) {
+    return true;
+});
+
+Broadcast::channel('scanner_testing', function ($user, $auth = "") {
     return true;
 });
 

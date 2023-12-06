@@ -10,6 +10,27 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Model for the Player Object
  *
  * @package App\Models
+ * @property int $player_id
+ * @property string $player_name
+ * @property string|null $pronouns
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Deck[] $decks
+ * @property-read int|null $decks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DraftSeat[] $draft_seats
+ * @property-read int|null $draft_seats_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Draft[] $drafts
+ * @property-read int|null $drafts_count
+ * @property-read int $draws
+ * @property-read int $losses
+ * @property-read int $trophies
+ * @property-read float|int|null $win_rate
+ * @property-read int $wins
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player wherePlayerName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player wherePronouns($value)
+ * @mixin \Eloquent
  */
 class Player extends Model
 {
@@ -114,15 +135,15 @@ class Player extends Model
             ->get()
             ->flatMap(function ($deck) {
                 return $deck->main_deck()
-                    ->where('is_basic', false)
+                    ->where('supertypes', 'not like', "%Basic%")
                     ->get();
             })
-            ->countBy('oracle_id')
+            ->countBy('uuid')
             ->sortDesc()
             ->take(5);
-        foreach ($cards as $oracle_id => $count)
+        foreach ($cards as $uuid => $count)
         {
-            $array[] = ['card' => Card::find($oracle_id),
+            $array[] = ['card' => Card::find($uuid),
                 'count' => $count];
         }
         return $array;

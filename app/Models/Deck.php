@@ -13,6 +13,37 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * Model for the Deck Object
  *
  * @package App\Models
+ * @property int $deck_id
+ * @property string $deck_name
+ * @property int $player_id
+ * @property string $color
+ * @property string $archetype
+ * @property int $wins
+ * @property int $losses
+ * @property int $draws
+ * @property int $is_trophy
+ * @property float|null $win_rate
+ * @property-read \App\Models\Draft|null $draft
+ * @property-read \App\Models\DraftSeat|null $draft_seat
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Card[] $main_deck
+ * @property-read int|null $main_deck_count
+ * @property-read \App\Models\Player|null $player
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Card[] $sideboard
+ * @property-read int|null $sideboard_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereArchetype($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereDeckId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereDeckName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereDraws($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereIsTrophy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereLosses($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereWinRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deck whereWins($value)
+ * @mixin \Eloquent
  */
 class Deck extends Model
 {
@@ -41,7 +72,7 @@ class Deck extends Model
      */
     public function main_deck(): BelongsToMany
     {
-        return $this->belongsToMany(Card::class, 'deck_contents','deck_id','oracle_id')
+        return $this->belongsToMany(Card::class, 'deck_contents','deck_id','uuid')
             ->where('is_sideboard',false)
             ->withPivot('quantity');
     }
@@ -53,7 +84,7 @@ class Deck extends Model
      */
     public function sideboard(): BelongsToMany
     {
-        return $this->belongsToMany(Card::class, 'deck_contents','deck_id','oracle_id')
+        return $this->belongsToMany(Card::class, 'deck_contents','deck_id','uuid')
             ->where('is_sideboard',true)
             ->withPivot('quantity');
     }

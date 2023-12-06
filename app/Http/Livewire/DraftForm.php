@@ -6,9 +6,11 @@ use App\Models\Draft;
 use App\Models\DraftSeat;
 use App\Models\Player;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use function PHPUnit\Framework\throwException;
 
 /**
  * Livewire Component for the Draft creation form
@@ -24,6 +26,10 @@ class DraftForm extends Component
     public bool $is_team_draft;
     public int $round_time;
 
+    protected $rules = [
+        'round_time' => 'required'
+    ];
+
     /**
      * Generate the default values for the livewire component
      *
@@ -31,6 +37,7 @@ class DraftForm extends Component
      */
     public function mount(): void
     {
+        $this->new_player_name = "";
         $this->remaining_previous_players = Player::get(['player_id','player_name']);
         $this->draft_seats = collect([]);
         $this->player_count = 0;
@@ -78,11 +85,17 @@ class DraftForm extends Component
 
     /**
      * Create the draft, and redirect the player to the active draft route, and controller.
-     *
-     * @return RedirectResponse
      */
-    public function createDraft(): RedirectResponse
+    public function createDraft()
     {
+        $this->withValidator(function (Validator $validator) {
+            $validator->after(function ($validator) {
+                if ($this->player_count == 0) {
+                    $validator->errors()->add('player_count', 'Please add at least one player to create a draft');
+                }
+            });
+        })->validate();
+
         $draft = new Draft([
             'phase' => 1,
             'is_team_draft' => $this->is_team_draft,

@@ -9,6 +9,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Model for the Draft Seat Object
  *
  * @package App\Models
+ * @property int $seat_id
+ * @property int|null $draft_id
+ * @property int|null $seat_number
+ * @property int $player_id
+ * @property int|null $team_number
+ * @property int|null $deck_id
+ * @property-read \App\Models\Deck|null $deck
+ * @property-read \App\Models\Draft|null $draft
+ * @property-read \App\Models\Player|null $player
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat whereDeckId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat whereDraftId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat whereSeatId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat whereSeatNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DraftSeat whereTeamNumber($value)
+ * @mixin \Eloquent
  */
 class DraftSeat extends Model
 {

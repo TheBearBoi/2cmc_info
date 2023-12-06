@@ -10,6 +10,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Model for the Draft Object
  *
  * @package App\Models
+ * @property int $draft_id
+ * @property int $phase
+ * @property int $is_team_draft
+ * @property string $round_time
+ * @property string|null $round_end_time
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Deck[] $decks
+ * @property-read int|null $decks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DraftMatch[] $matches
+ * @property-read int|null $matches_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $players
+ * @property-read int|null $players_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DraftSeat[] $seats
+ * @property-read int|null $seats_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft whereDraftId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft whereIsTeamDraft($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft wherePhase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft whereRoundEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Draft whereRoundTime($value)
+ * @mixin \Eloquent
  */
 class Draft extends Model
 {
